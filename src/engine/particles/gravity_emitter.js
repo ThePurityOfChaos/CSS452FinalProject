@@ -15,8 +15,9 @@ class GravityEmitter extends ParticleEmitter{
         super.emitParticles(pSet);
         if(this.perpetual)
         this.mNumRemains = this.baseNum;
+    
     }
 
-
+ 
 }
 export default GravityEmitter;
