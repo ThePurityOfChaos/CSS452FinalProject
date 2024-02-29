@@ -20,6 +20,8 @@ import * as defaultResources from "./resources/default_resources.js";
 import * as input from "./components/input.js";
 import * as physics from "./components/physics.js";
 import * as particleSystem from "./components/particle_system.js";
+import * as gravity from "./components/gravity.js"
+import * as gravityFunctions from "./components/gravity_functions.js"
 
 // general utilities
 import Scene from "./scene.js";
@@ -45,6 +47,7 @@ import FontRenderable from "./renderables/font_renderable.js";
 import LineRenderable from "./renderables/line_renderable.js";
 import LightRenderable from "./renderables/light_renderable.js";
 import IllumRenderable from "./renderables/illum_renderable.js";
+import GravityRenderable from "./renderables/gravity_renderable.js";
 import { eTexCoordArrayIndex } from "./renderables/sprite_renderable.js";
 import { eAnimationType } from "./renderables/sprite_animate_renderable.js";
 
@@ -71,6 +74,8 @@ import CollisionInfo from "./rigid_shapes/collision_info.js";
 import Particle from "./particles/particle.js";
 import ParticleSet from "./particles/particle_set.js";
 import ParticleEmitter from "./particles/particle_emitter.js";
+import GravityParticle from "./particles/gravity_particle.js";
+import GravityEmitter from "./particles/gravity_emitter.js";
 
 // local to this file only
 import * as glSys from "./core/gl.js";

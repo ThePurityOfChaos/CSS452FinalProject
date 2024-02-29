@@ -1,10 +1,16 @@
+
+
+
+
+"use strict"
+
 import ParticleEmitter from "./particle_emitter.js";
 
 
 class GravityEmitter extends ParticleEmitter{
     
-    constructor(px, py, num, perpetual){
-        let creatorFunc = gravity.creatorFunc();
+    constructor(px, py, num, perpetual, direction){
+        let creatorFunc = gravity.creatorFunc(direction);
         super(px,py,num,creatorFunc);
         this.perpetual = perpetual;
         if(this.perpetual)
@@ -15,7 +21,7 @@ class GravityEmitter extends ParticleEmitter{
         super.emitParticles(pSet);
         if(this.perpetual)
         this.mNumRemains = this.baseNum;
-    
+
     }
 
  

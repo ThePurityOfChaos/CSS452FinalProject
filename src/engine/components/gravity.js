@@ -1,9 +1,6 @@
 /* 
-*
 *   File: gravity.js
-*
 *   Particle-based Gravity System Support
-*
 */
 "use strict"
 let mGSystemDirections = 1;
@@ -12,7 +9,9 @@ let mGSystemBounds = [0,0,0,0];
 let mGDensity = 3;
 let mGSystemForce = 10.0;
 let mGSystemSpeed = 10;
-let mSystemLife = 100;
+let mGSystemLife = 100;
+let mGParticleStartColor = [1,1,1,0];
+let mGParticleEndColor = [0,0,0,1];
 
 //input: int density
 function setDensity(newDensity){
@@ -51,27 +50,39 @@ function setDefaultDirection(direction){
 function getDefaultDirection(){
     return mGSystemDefaultDirection;
 }
+//vec4 color
+function setParticleStartColor(color){
+    mGParticleStartColor = color;
+}
+function getParticleStartColor(){
+    return mGParticleStartColor;
+}
+//vec4 color
+function setParticleEndColor(color){
+    mGParticleEndColor = color;
+}
+function getParticleEndColor(){
+    return mGParticleStartColor;
+}
 
 function creatorFunc(direction){
-    // should be based on system bounds and speed (when it would hit the wall, or reach its starting point if modular space)
-    let life = mSystemLife;
+    // should be based on system bounds and speed (when it would hit the wall, or reach its starting point if modular space. Currently just a value.)
+    let life = mGSystemLife;
 
     let p = new engine.GravityParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
-    p.setColor([1, 1, 1, 0]);
+    p.setColor(mGParticleStartColor);
     
     // size of the particle
     let r = 1;
     p.setSize(r, r);
     
-    // final color (colorful currently)
-    let fr = 0
-    let fg = 0
-    let fb = 0
-    p.setFinalColor([fr, fg, fb, 1]);
+    // final color
+    p.setFinalColor(mGParticleEndColor);
     
     // velocity on the particle
-    let fx = mGSystemSpeed;
-    let fy = mGSystemSpeed;
+    let thisDirection = gravityFunctions.findDirection(direction);
+    let fx = mGSystemSpeed * Math.cos(thisDirection);
+    let fy = mGSystemSpeed * Math.sin(thisDirection);
     p.setVelocity(fx, fy);
     
     // size delta
@@ -83,7 +94,7 @@ export {
     //particle creator function
     creatorFunc, 
     //getters and setters
-    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection,
-    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection
+    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor,
+    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor
 
 }
