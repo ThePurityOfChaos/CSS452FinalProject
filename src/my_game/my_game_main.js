@@ -100,12 +100,37 @@ class MyGame extends engine.Scene {
         // Particle System
         this.mParticles.update();
 
-        this.mGravityParticles.update();
-
         // gravity object update
         this.mGravityObject.update();
 
         //Gravity System
+        if (engine.input.isKeyClicked(engine.input.keys.P)) {     // incrementing density
+            engine.gravity.setDensity(engine.gravity.getDensity() + 1);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.R)) {     // decrementing density
+            engine.gravity.setDensity(engine.gravity.getDensity() - 1);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.D)) {     // incrementing system directions
+            engine.gravity.setSystemDirections(engine.gravity.getSystemDirections() + 1);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.E)) {     // decrementing system directions
+            engine.gravity.setSystemDirections(engine.gravity.getSystemDirections() - 1);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.G)) {     // incrementing gravity force
+            engine.gravity.setGravityForce(engine.gravity.getGravityForce() + 1);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.H)) {     // decrementing gravity force
+            engine.gravity.setGravityForce(engine.gravity.getGravityForce() - 1);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.S)){      // incrementing system speed
+            engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() + 1);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.Z)){      // decrementing system speed
+            engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() - 1);
+        }
+
+        // engine.gravity_functions.generateParticles().draw(this.mCamera);
+        this.mGravityParticles.update();
         
     }
 }
