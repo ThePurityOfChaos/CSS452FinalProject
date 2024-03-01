@@ -4,7 +4,7 @@
  */
 "use strict";
 
-let kMinToEmit = 5; // Smallest number of particle emitted per cycle
+let kMinToEmit = 1; // Smallest number of particle emitted per cycle
 
 class ParticleEmitter {
     constructor(px, py, num, createrFunc) {

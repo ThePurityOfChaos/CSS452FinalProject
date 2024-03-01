@@ -5,7 +5,7 @@
  */
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-import * as SpriteRenderable from "./sprite_renderable";
+import SpriteRenderable from "./sprite_renderable.js";
 import engine from "../../engine/index.js";
 
 class GravityRenderable extends SpriteRenderable {

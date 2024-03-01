@@ -2,17 +2,21 @@
 *   File: gravity.js
 *   Particle-based Gravity System Support
 */
-
 "use strict"
-let mGSystemDirections = 1;
+import * as defaultResources from "../resources/default_resources.js"
+import * as gravityFunctions from "./gravity_functions.js";
+import GravityParticle from "../particles/gravity_particle.js";
+
+
+let mGSystemDirections = 16;
 let mGSystemDefaultDirection = 270.0;
-let mGSystemBounds = [0,0,0,0];
-let mGDensity = 3;
-let mGSystemForce = 10.0;
-let mGSystemSpeed = 10;
-let mGSystemLife = 100;
-let mGParticleStartColor = [1,1,1,0];
-let mGParticleEndColor = [0,0,0,1];
+let mGSystemBounds = [10,10,90,70];
+let mGDensity = 5;
+let mGSystemForce = 5.0;
+let mGSystemSpeed = 50;
+let mGSystemLife = 10;
+let mGParticleStartColor = [1,1,1,1];
+let mGParticleEndColor = [1,1,1,1];
 
 //input: int density
 function setDensity(newDensity){
@@ -68,14 +72,14 @@ function setParticleEndColor(color){
     mGParticleEndColor = color;
 }
 function getParticleEndColor(){
-    return mGParticleStartColor;
+    return mGParticleEndColor;
 }
 
-function creatorFunc(direction){
+function creatorFunc(atX, atY, direction){
     // should be based on system bounds and speed (when it would hit the wall, or reach its starting point if modular space. Currently just a value.)
     let life = mGSystemLife;
 
-    let p = new engine.GravityParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+    let p = new GravityParticle(defaultResources.getDefaultPSTexture(), atX, atY, life);
     p.setColor(mGParticleStartColor);
     
     // size of the particle

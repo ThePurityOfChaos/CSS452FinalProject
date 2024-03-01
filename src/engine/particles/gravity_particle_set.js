@@ -1,6 +1,7 @@
 "use strict"
 
 import GravityEmitter from "./gravity_emitter.js";
+import ParticleSet from "./particle_set.js";
 
 class GravityParticleSet extends ParticleSet{
 
