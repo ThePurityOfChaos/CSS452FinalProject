@@ -20,8 +20,8 @@ import * as defaultResources from "./resources/default_resources.js";
 import * as input from "./components/input.js";
 import * as physics from "./components/physics.js";
 import * as particleSystem from "./components/particle_system.js";
-import * as gravity from "./components/gravity.js"
-import * as gravityFunctions from "./components/gravity_functions.js"
+import * as gravity from "./components/gravity.js";
+import * as gravity_functions from "./components/gravity_functions.js";
 
 // general utilities
 import Scene from "./scene.js";
@@ -75,6 +75,7 @@ import Particle from "./particles/particle.js";
 import ParticleSet from "./particles/particle_set.js";
 import ParticleEmitter from "./particles/particle_emitter.js";
 import GravityParticle from "./particles/gravity_particle.js";
+import GravityParticleSet from "./particles/gravity_particle_set.js";
 import GravityEmitter from "./particles/gravity_emitter.js";
 
 // local to this file only
@@ -116,7 +117,7 @@ export default {
     audio, text, xml, texture, font, defaultResources,
 
     // engine components
-    input, particleSystem,
+    input, particleSystem, gravity, gravity_functions,
 
     // general utils 
     Lerp, LerpVec2, Oscillate, Shake, ShakeVec2,
@@ -126,7 +127,7 @@ export default {
     
     // Renderables
     Renderable, TextureRenderable, SpriteRenderable, SpriteAnimateRenderable, 
-    FontRenderable, LineRenderable, LightRenderable, IllumRenderable,
+    FontRenderable, LineRenderable, LightRenderable, IllumRenderable, GravityRenderable,
 
     // Game Objects
     GameObject, GameObjectSet,
@@ -141,7 +142,7 @@ export default {
     physics, RigidShape, RigidCircle, RigidRectangle, CollisionInfo,
 
     // Particle support
-    Particle, ParticleSet, ParticleEmitter,
+    Particle, ParticleSet, ParticleEmitter, GravityParticle, GravityParticleSet, GravityEmitter,
 
     // constants
     eTexCoordArrayIndex, eAnimationType, eBoundCollideStatus, eLightType,

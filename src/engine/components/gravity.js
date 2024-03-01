@@ -2,6 +2,7 @@
 *   File: gravity.js
 *   Particle-based Gravity System Support
 */
+
 "use strict"
 let mGSystemDirections = 1;
 let mGSystemDefaultDirection = 0.0;
@@ -79,7 +80,7 @@ function creatorFunc(direction){
     // final color
     p.setFinalColor(mGParticleEndColor);
     
-    // velocity on the particle
+    // velocity on the particle, in radians
     let thisDirection = gravityFunctions.findDirection(direction);
     let fx = mGSystemSpeed * Math.cos(thisDirection);
     let fy = mGSystemSpeed * Math.sin(thisDirection);
