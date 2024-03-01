@@ -126,7 +126,7 @@ export default {
     
     // Renderables
     Renderable, TextureRenderable, SpriteRenderable, SpriteAnimateRenderable, 
-    FontRenderable, LineRenderable, LightRenderable, IllumRenderable, gravityFunctions,
+    FontRenderable, LineRenderable, LightRenderable, IllumRenderable, GravityRenderable,
 
     // Game Objects
     GameObject, GameObjectSet,
