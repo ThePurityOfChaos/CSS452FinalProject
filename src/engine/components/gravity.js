@@ -18,21 +18,25 @@ let mGSystemLife = 10;
 let mGParticleStartColor = [1,1,1,1];
 let mGParticleEndColor = [1,1,1,1];
 
-//input: int density
+//input: int
 function setDensity(newDensity){
     mGDensity = newDensity;
 }
 function getDensity(){
     return mGDensity;
 }
-//input: 
+//input: vec2, vec2
 function setSystemBounds([x,y],[x2,y2]){
     mGSystemBounds = [x,y,x2,y2];
 }
 function getSystemBounds(){
     return mGSystemBounds;
 }
-
+//input: int/float 
+function setSystemSpeed(speed)
+{
+    mGSystemSpeed=speed;
+}
 function getSystemSpeed()
 {
     return mGSystemSpeed;
@@ -41,33 +45,40 @@ function getSystemSpeed()
 //input: int directions, float defaultDirection if desired
 function setSystemDirections(directions){
     mGSystemDirections = directions;
-    arguments>1?mGSystemDefaultDirection=arguments[1]:null;
+    arguments>1?mGSystemDefaultDirection=arguments[1]%360.0:null;
 }
 function getSystemDirections(){
     return mGSystemDirections;
 }
-//float or integer force
+//input: int/float
+function setSystemDefaultDirection(direction){
+    mGSystemDefaultDirection=direction%360.0;
+}
+function getSystemDefaultDirection(){
+    return mGSystemDefaultDirection;
+}
+//input: int/float
 function setGravityForce(force){
     mGSystemForce = force;
 }
 function getGravityForce(){
     return mGSystemForce;
 }
-//float or integer
+//input: int/float
 function setDefaultDirection(direction){
     mGSystemDefaultDirection = direction % 360;
 }
 function getDefaultDirection(){
     return mGSystemDefaultDirection;
 }
-//vec4 color
+//input: vec4
 function setParticleStartColor(color){
     mGParticleStartColor = color;
 }
 function getParticleStartColor(){
     return mGParticleStartColor;
 }
-//vec4 color
+//input: vec4
 function setParticleEndColor(color){
     mGParticleEndColor = color;
 }
@@ -104,8 +115,9 @@ export {
     //particle creator function
     creatorFunc, 
     //getters and setters
-    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor,
-    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor,
-    getSystemSpeed
+    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getSystemDefaultDirection,
+    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setSystemDefaultDirection,
+    getSystemSpeed,
+    setSystemSpeed
 
 }
