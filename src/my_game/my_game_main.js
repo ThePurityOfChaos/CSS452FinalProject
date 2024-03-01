@@ -7,6 +7,7 @@
 import engine from "../engine/index.js";
 import Hero from "./objects/hero.js";
 import Minion from "./objects/minion.js";
+import GravitatingObject from "./objects/gravitating_object.js";
 
 class MyGame extends engine.Scene {
     constructor() {
@@ -63,7 +64,7 @@ class MyGame extends engine.Scene {
         this.mPlatforms = new engine.GameObjectSet();
 
         // initializing a gravity object
-        this.mGravityObject = new engine.GravityRenderable(this.kMinionSprite, true, 12);
+        this.mGravityObject = new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12);
 
         this.createBounds();  // added to mPlatforms
 
