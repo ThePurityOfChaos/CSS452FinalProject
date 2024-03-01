@@ -18,8 +18,8 @@ class GravityRenderable extends SpriteRenderable {
         this.currentDirection = engine.gravity.getDefaultDirection(); // what should we assign for default direction?
 
         // velocity is speed * cos(direction) for x, sin(direction) for y
-        this.currentVelocityX = speed * Math.cos(this.currentDirection);
-        this.currentVelocityY = speed * Math.sin(this.currentDirection);
+        this.currentVelocityX = this.speed * Math.cos(this.currentDirection);
+        this.currentVelocityY = this.speed * Math.sin(this.currentDirection);
     }
 
     isGravitating()

@@ -66,7 +66,12 @@ class MyGame extends engine.Scene {
         // initializing a gravity object
         this.mGravityObject = new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12);
 
+        this.mParticles = new engine.ParticleSet();
+
         this.createBounds();  // added to mPlatforms
+
+        //Gravity System
+        this.mGravityParticles = engine.gravity_functions.generateParticles();
 
     }
 
@@ -81,6 +86,10 @@ class MyGame extends engine.Scene {
         this.mPlatforms.draw(this.mCamera);
 
         this.mGravityObject.draw(this.mCamera);
+
+        this.mGravityParticles.draw(this.mCamera);
+        if (this.mPSDrawBounds)
+            this.mGravityParticles.drawMarkers(this.mCamera);
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -91,8 +100,13 @@ class MyGame extends engine.Scene {
         // Particle System
         this.mParticles.update();
 
+        this.mGravityParticles.update();
+
         // gravity object update
         this.mGravityObject.update();
+
+        //Gravity System
+        
     }
 }
 
