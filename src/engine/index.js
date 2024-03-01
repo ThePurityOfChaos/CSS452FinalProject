@@ -126,7 +126,7 @@ export default {
     
     // Renderables
     Renderable, TextureRenderable, SpriteRenderable, SpriteAnimateRenderable, 
-    FontRenderable, LineRenderable, LightRenderable, IllumRenderable,
+    FontRenderable, LineRenderable, LightRenderable, IllumRenderable, gravityFunctions,
 
     // Game Objects
     GameObject, GameObjectSet,
@@ -142,6 +142,9 @@ export default {
 
     // Particle support
     Particle, ParticleSet, ParticleEmitter,
+
+    // Gravity support
+    gravity, gravityFunctions,
 
     // constants
     eTexCoordArrayIndex, eAnimationType, eBoundCollideStatus, eLightType,

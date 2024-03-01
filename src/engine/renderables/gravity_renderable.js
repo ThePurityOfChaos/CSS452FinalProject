@@ -6,6 +6,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 import * as SpriteRenderable from "./sprite_renderable";
+import engine from "../../engine/index.js";
 
 class GravityRenderable extends SpriteRenderable {
     constructor(myTexture, gravityBool, mass)
@@ -13,8 +14,12 @@ class GravityRenderable extends SpriteRenderable {
         super(myTexture);
         this.gravitating = gravityBool;
         this.mass = mass;
-        this.currentVelocity = NaN; // what should we assign for default velocity?
-        this.currentDirection = NaN; // what should we assign for default direction?
+        this.speed = engine.gravity.getSystemSpeed();
+        this.currentDirection = engine.gravity.getDefaultDirection(); // what should we assign for default direction?
+
+        // velocity is speed * cos(direction) for x, sin(direction) for y
+        this.currentVelocityX = speed * Math.cos(this.currentDirection);
+        this.currentVelocityY = speed * Math.sin(this.currentDirection);
     }
 
     isGravitating()
@@ -25,6 +30,11 @@ class GravityRenderable extends SpriteRenderable {
     gravitate(gravityBool)
     {
         this.gravitating = gravityBool;
+    }
+
+    getVelocity()
+    {
+        return [this.currentVelocityX, this.currentVelocityY];
     }
 }
 
