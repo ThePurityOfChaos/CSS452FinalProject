@@ -144,6 +144,9 @@ export default {
     // Particle support
     Particle, ParticleSet, ParticleEmitter, GravityParticle, GravityParticleSet, GravityEmitter,
 
+    // Gravity support
+    gravity, gravityFunctions,
+
     // constants
     eTexCoordArrayIndex, eAnimationType, eBoundCollideStatus, eLightType,
 

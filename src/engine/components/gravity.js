@@ -5,7 +5,7 @@
 
 "use strict"
 let mGSystemDirections = 1;
-let mGSystemDefaultDirection = 0.0;
+let mGSystemDefaultDirection = 270.0;
 let mGSystemBounds = [0,0,0,0];
 let mGDensity = 3;
 let mGSystemForce = 10.0;
@@ -27,6 +27,11 @@ function setSystemBounds([x,y],[x2,y2]){
 }
 function getSystemBounds(){
     return mGSystemBounds;
+}
+
+function getSystemSpeed()
+{
+    return mGSystemSpeed;
 }
 
 //input: int directions, float defaultDirection if desired
@@ -96,6 +101,7 @@ export {
     creatorFunc, 
     //getters and setters
     getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor,
-    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor
+    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor,
+    getSystemSpeed
 
 }
