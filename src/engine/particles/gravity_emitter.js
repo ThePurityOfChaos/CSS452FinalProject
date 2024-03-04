@@ -6,6 +6,7 @@
 
 import ParticleEmitter from "./particle_emitter.js";
 import * as gravity from "../components/gravity.js";
+import * as gravity_functions from "../components/gravity_functions.js";
 
 class GravityEmitter extends ParticleEmitter{
     
@@ -35,6 +36,13 @@ class GravityEmitter extends ParticleEmitter{
         }
         if(this.perpetual)
         this.mNumRemains = this.baseNum;
+    }
+    move(dx,dy){
+        this.mEmitPosition[0]=this.mEmitPosition[0]+dx;
+        this.mEmitPosition[1]=this.mEmitPosition[1]+dy;
+        if(gravity.isModularSpace()){
+        [this.mEmitPosition[0],this.mEmitPosition[1]]= gravity_functions.modularize(this.mEmitPosition[0],this.mEmitPosition[1]);
+        }
     }
 
  

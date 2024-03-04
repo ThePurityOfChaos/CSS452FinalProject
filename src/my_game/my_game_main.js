@@ -8,6 +8,7 @@ import engine from "../engine/index.js";
 import Hero from "./objects/hero.js";
 import Minion from "./objects/minion.js";
 import GravitatingObject from "./objects/gravitating_object.js";
+import GravityEmitter from "../engine/particles/gravity_emitter.js";
 
 class MyGame extends engine.Scene {
     constructor() {
@@ -84,7 +85,14 @@ class MyGame extends engine.Scene {
 
         //Gravity System
         engine.gravity.setSystemBounds([3.5,6],[96.5,74]);
+        engine.gravity.setDefaultDirection(270.0);
         this.mGravityParticles = engine.gravity_functions.generateParticles();
+
+        //Gravity Gun
+        let bounds = engine.gravity.getSystemBounds();
+
+        this.mGravityGun = new engine.GravityParticleSet();
+        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0);
         
 
     }
@@ -106,6 +114,8 @@ class MyGame extends engine.Scene {
         this.mGravityParticles.draw(this.mCamera);
         if (this.mPSDrawBounds)
             this.mGravityParticles.drawMarkers(this.mCamera);
+
+        this.mGravityGun.draw(this.mCamera);
         
     }
 
@@ -153,9 +163,23 @@ class MyGame extends engine.Scene {
         }
         if (engine.input.isKeyPressed(engine.input.keys.A)){      // incrementing system direction
             engine.gravity.setSystemDefaultDirection(engine.gravity.getSystemDefaultDirection() + 1.0);
+           
         }
         if (engine.input.isKeyPressed(engine.input.keys.D)){      // decrementing system direction
             engine.gravity.setSystemDefaultDirection(engine.gravity.getSystemDefaultDirection() - 1.0);
+        }
+        if(engine.input.isKeyPressed(engine.input.keys.Left))
+        this.mGravityGun.getEmitterAt(0).move(-0.25,0);
+        if(engine.input.isKeyPressed(engine.input.keys.Right))
+        this.mGravityGun.getEmitterAt(0).move(0.25,0);
+
+        if(engine.input.isKeyPressed(engine.input.keys.J)){
+            engine.gravity.setLifespan(engine.gravity.getLifespan()+1);
+            
+        }
+        if(engine.input.isKeyPressed(engine.input.keys.K)){
+            engine.gravity.setLifespan(engine.gravity.getLifespan()-1);
+            
         }
         if(engine.input.isKeyClicked(engine.input.keys.R)){
             engine.gravity.toggleRandomParticles();
@@ -163,18 +187,18 @@ class MyGame extends engine.Scene {
         }
         if(engine.input.isKeyClicked(engine.input.keys.M)){
             engine.gravity.toggleModularSpace();
-            this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
         if(engine.input.isKeyClicked(engine.input.keys.C)){
             engine.gravity.toggleCustomColors();
-            this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
         
         //rigid bodies ( no gravity)
         this.mAllObjs.update(this.mCamera);
 
-        // engine.gravity_functions.generateParticles().draw(this.mCamera);
         this.mGravityParticles.update();
+
+        this.mGravityGun.update();
+
         
     }
     

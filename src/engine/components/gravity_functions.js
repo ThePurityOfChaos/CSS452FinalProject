@@ -16,6 +16,12 @@ function findDirection(direction){
     //turn it into radians and return, thanks WikiHow! (https://www.wikihow.com/Convert-Degrees-to-Radians)
     return (direction*angleDegrees+gravity.getDefaultDirection()) * (Math.PI/180);
 }
+function modularize(x,y){
+    let bounds = gravity.getSystemBounds();
+        x = ((x-bounds[0])%(bounds[2]-bounds[0])+(bounds[2]-bounds[0]))%(bounds[2]-bounds[0])+bounds[0];
+        y = ((y-bounds[1])%(bounds[3]-bounds[1])+(bounds[3]-bounds[1]))%(bounds[3]-bounds[1])+bounds[1];
+    return [x,y];
+}
 //Not actually necessary, essentially just a fancy preset.
 function generateParticles(){
     //Big O of directions*density^2 
@@ -59,6 +65,8 @@ export {
     //math function finding a direction
     findDirection,
     //helper function to create particles from the gravity system
-    generateParticles
+    generateParticles,
+    //helper function to modularize the bounds
+    modularize
 
 }

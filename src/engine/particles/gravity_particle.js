@@ -6,14 +6,13 @@
 
 import Particle from "./particle.js";
 import * as gravity from "../components/gravity.js";
+import * as gravity_functions from "../components/gravity_functions.js";
 
 
 class GravityParticle extends Particle{
     constructor(texture,x,y,life){
         if(gravity.isModularSpace()){
-            let bounds = gravity.getSystemBounds();
-            x = ((x-bounds[0])%(bounds[2]-bounds[0])+(bounds[2]-bounds[0]))%(bounds[2]-bounds[0])+bounds[0];
-            y = ((y-bounds[1])%(bounds[3]-bounds[1])+(bounds[3]-bounds[1]))%(bounds[3]-bounds[1])+bounds[1];
+            [x,y]=gravity_functions.modularize(x,y);
         }
         super(texture,x,y,life);
         this.mAcceleration = [0, 0];

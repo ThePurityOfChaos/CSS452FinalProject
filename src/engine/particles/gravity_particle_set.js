@@ -9,5 +9,11 @@ class GravityParticleSet extends ParticleSet{
         let e = new GravityEmitter(x, y, n, perpetual, direction);
         this.mEmitterSet.push(e);
     }
+    getEmitterAt(index){
+        return this.mEmitterSet[index];
+    }
+    update(){
+        super.update();
+    }
 }
 export default GravityParticleSet;

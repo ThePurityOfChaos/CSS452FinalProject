@@ -9,12 +9,12 @@ import GravityParticle from "../particles/gravity_particle.js";
 
 
 let mGSystemDirections = 1;
-let mGSystemDefaultDirection = 270.0;
+let mGSystemDefaultDirection = 0.0;
 let mGSystemBounds = [0,0,0,0];
 let mGDensity = 3;
 let mGSystemForce = 5.0;
 let mGSystemSpeed = 10;
-let mGSystemLife = 50;
+let mGSystemLife = 10;
 let mGParticleStartColor = [1,1,1,1];
 let mGParticleEndColor = [1,1,1,1];
 let randomParticles = false;
@@ -107,15 +107,21 @@ function toggleModularSpace(){
 function isModularSpace(){
     return modularSpace;
 }
+//input: int/float
+function setLifespan(lifespan){
+    mGSystemLife = lifespan;
+}
+function getLifespan(){
+    return mGSystemLife;
+}
 
 function creatorFunc(atX, atY, direction){
-    // should be based on system bounds and speed (when it would hit the wall, or reach its starting point if modular space. Currently just a value.)
     let dx,dy;
     atX == null?dx = mGSystemBounds[0]+mGSystemBounds[2]*Math.random():dx=atX;
 
     atY == null?dy = mGSystemBounds[1]+mGSystemBounds[3]*Math.random():dy=atY;
 
-
+    // should be based on system bounds and speed (when it would hit the wall, or reach its starting point if modular space. Currently just a value.)
     let life = mGSystemLife;
 
     let p = new GravityParticle(defaultResources.getDefaultPSTexture(), dx, dy, life);
@@ -151,8 +157,8 @@ export {
     toggleRandomParticles, toggleModularSpace, toggleCustomColors,
     getRandomParticles, isModularSpace, usingCustomColors,
     //getters and setters
-    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getSystemDefaultDirection,
-    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setSystemDefaultDirection,
+    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getSystemDefaultDirection, getLifespan,
+    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setSystemDefaultDirection, setLifespan,
     getSystemSpeed,
     setSystemSpeed
 
