@@ -8,15 +8,18 @@ import * as gravityFunctions from "./gravity_functions.js";
 import GravityParticle from "../particles/gravity_particle.js";
 
 
-let mGSystemDirections = 16;
+let mGSystemDirections = 1;
 let mGSystemDefaultDirection = 270.0;
-let mGSystemBounds = [10,10,90,70];
-let mGDensity = 5;
+let mGSystemBounds = [0,0,0,0];
+let mGDensity = 3;
 let mGSystemForce = 5.0;
-let mGSystemSpeed = 50;
-let mGSystemLife = 10;
+let mGSystemSpeed = 10;
+let mGSystemLife = 50;
 let mGParticleStartColor = [1,1,1,1];
 let mGParticleEndColor = [1,1,1,1];
+let randomParticles = false;
+let modularSpace = false;
+let customColors = false;
 
 //input: int
 function setDensity(newDensity){
@@ -85,12 +88,37 @@ function setParticleEndColor(color){
 function getParticleEndColor(){
     return mGParticleEndColor;
 }
+function toggleRandomParticles(){
+    randomParticles=!randomParticles;
+}
+function getRandomParticles(){
+    return randomParticles;
+}
+function toggleCustomColors(){
+    customColors=!customColors;
+}
+function usingCustomColors(){
+    return customColors;
+}
+
+function toggleModularSpace(){
+    modularSpace = !modularSpace;
+}
+function isModularSpace(){
+    return modularSpace;
+}
 
 function creatorFunc(atX, atY, direction){
     // should be based on system bounds and speed (when it would hit the wall, or reach its starting point if modular space. Currently just a value.)
+    let dx,dy;
+    atX == null?dx = mGSystemBounds[0]+mGSystemBounds[2]*Math.random():dx=atX;
+
+    atY == null?dy = mGSystemBounds[1]+mGSystemBounds[3]*Math.random():dy=atY;
+
+
     let life = mGSystemLife;
 
-    let p = new GravityParticle(defaultResources.getDefaultPSTexture(), atX, atY, life);
+    let p = new GravityParticle(defaultResources.getDefaultPSTexture(), dx, dy, life);
     p.setColor(mGParticleStartColor);
     
     // size of the particle
@@ -104,6 +132,11 @@ function creatorFunc(atX, atY, direction){
     let thisDirection = gravityFunctions.findDirection(direction);
     let fx = mGSystemSpeed * Math.cos(thisDirection);
     let fy = mGSystemSpeed * Math.sin(thisDirection);
+
+    if(customColors){
+    p.setColor([fy,fx,Math.abs(fx-fy),1]);
+    p.setFinalColor([fy,fx,Math.abs(fx-fy),1]);
+    }
     p.setVelocity(fx, fy);
     
     // size delta
@@ -114,6 +147,9 @@ function creatorFunc(atX, atY, direction){
 export {
     //particle creator function
     creatorFunc, 
+    //particle base manipulations
+    toggleRandomParticles, toggleModularSpace, toggleCustomColors,
+    getRandomParticles, isModularSpace, usingCustomColors,
     //getters and setters
     getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getSystemDefaultDirection,
     setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setSystemDefaultDirection,

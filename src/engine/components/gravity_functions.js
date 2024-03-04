@@ -23,6 +23,7 @@ function generateParticles(){
     let bounds = gravity.getSystemBounds();
     let density = gravity.getDensity();
     let directions = gravity.getSystemDirections();
+    let randomizeParticles = gravity.getRandomParticles();
     //bounds[x,y,x2,y2]
     /*
     for density 3 with bounds [1,1,2,2]
@@ -35,9 +36,15 @@ function generateParticles(){
     for(i=0; i<density; i++){
         // x = leftmost point + (rightmost - leftmost)/(density-1) * this emitter's position
         x = bounds[0]+(((bounds[2]-bounds[0])/(density-1))*i);
+        //if null, randomize
+        if(randomizeParticles)
+        x = null;
         for(j=0; j<density; j++){
             // y = bottommost point + (topmost-bottommost)/(density-1) * this emitter's position
             y = bounds[1]+(((bounds[3]-bounds[1])/(density-1))*j);
+            //if null, randomize
+            if(randomizeParticles)
+            y = null;
             for(k = 0; k<directions; k++){
                 //addEmitterAt(x,y, numParticlesPerEmitter, perpetual, direction)
                 particleSet.addEmitterAt(x,y, 5, true, k);

@@ -70,8 +70,22 @@ class MyGame extends engine.Scene {
 
         this.createBounds();  // added to mPlatforms
 
+        //initialize rigid bodies
+        this.mAllObjs = new engine.GameObjectSet();
+
+        let y = 70;
+        let x = 10;
+        for (let i = 1; i <= 5; i++) {
+            let m = new Minion(this.kMinionSprite, x, y, ((i % 2) !== 0));
+            this.mParticles.addEmitterAt(x, y, 200, _createParticle);
+            x += 20;
+            this.mAllObjs.addToSet(m);
+        }
+
         //Gravity System
+        engine.gravity.setSystemBounds([3.5,6],[96.5,74]);
         this.mGravityParticles = engine.gravity_functions.generateParticles();
+        
 
     }
 
@@ -87,9 +101,12 @@ class MyGame extends engine.Scene {
 
         this.mGravityObject.draw(this.mCamera);
 
+        this.mAllObjs.draw(this.mCamera);
+
         this.mGravityParticles.draw(this.mCamera);
         if (this.mPSDrawBounds)
             this.mGravityParticles.drawMarkers(this.mCamera);
+        
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -108,15 +125,17 @@ class MyGame extends engine.Scene {
             engine.gravity.setDensity(engine.gravity.getDensity() + 1);
             this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
-        if (engine.input.isKeyClicked(engine.input.keys.R)) {     // decrementing density
+        if (engine.input.isKeyClicked(engine.input.keys.O)) {     // decrementing density
             engine.gravity.setDensity(engine.gravity.getDensity() - 1);
             this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
-        if (engine.input.isKeyClicked(engine.input.keys.D)) {     // incrementing system directions
+        if (engine.input.isKeyClicked(engine.input.keys.Q)) {     // incrementing system directions
             engine.gravity.setSystemDirections(engine.gravity.getSystemDirections() + 1);
+            this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
         if (engine.input.isKeyClicked(engine.input.keys.E)) {     // decrementing system directions
             engine.gravity.setSystemDirections(engine.gravity.getSystemDirections() - 1);
+            this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
         if (engine.input.isKeyClicked(engine.input.keys.G)) {     // incrementing gravity force
             engine.gravity.setGravityForce(engine.gravity.getGravityForce() + 1);
@@ -126,17 +145,64 @@ class MyGame extends engine.Scene {
             engine.gravity.setGravityForce(engine.gravity.getGravityForce() - 1);
             this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
-        if (engine.input.isKeyClicked(engine.input.keys.S)){      // incrementing system speed
+        if (engine.input.isKeyPressed(engine.input.keys.W)){      // incrementing system speed
             engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() + 1);
         }
-        if (engine.input.isKeyClicked(engine.input.keys.Z)){      // decrementing system speed
+        if (engine.input.isKeyPressed(engine.input.keys.S)){      // decrementing system speed
             engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() - 1);
         }
+        if (engine.input.isKeyPressed(engine.input.keys.A)){      // incrementing system direction
+            engine.gravity.setSystemDefaultDirection(engine.gravity.getSystemDefaultDirection() + 1.0);
+        }
+        if (engine.input.isKeyPressed(engine.input.keys.D)){      // decrementing system direction
+            engine.gravity.setSystemDefaultDirection(engine.gravity.getSystemDefaultDirection() - 1.0);
+        }
+        if(engine.input.isKeyClicked(engine.input.keys.R)){
+            engine.gravity.toggleRandomParticles();
+            this.mGravityParticles = engine.gravity_functions.generateParticles();
+        }
+        if(engine.input.isKeyClicked(engine.input.keys.M)){
+            engine.gravity.toggleModularSpace();
+            this.mGravityParticles = engine.gravity_functions.generateParticles();
+        }
+        if(engine.input.isKeyClicked(engine.input.keys.C)){
+            engine.gravity.toggleCustomColors();
+            this.mGravityParticles = engine.gravity_functions.generateParticles();
+        }
+        
+        //rigid bodies ( no gravity)
+        this.mAllObjs.update(this.mCamera);
 
         // engine.gravity_functions.generateParticles().draw(this.mCamera);
         this.mGravityParticles.update();
         
     }
+    
+}
+function _createParticle(atX, atY) {
+    let life = 30 + Math.random() * 200;
+    let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+    p.setColor([1, 0, 0, 1]);
+    
+    // size of the particle
+    let r = 5.5 + Math.random() * 0.5;
+    p.setSize(r, r);
+    
+    // final color
+    let fr = 3.5 + Math.random();
+    let fg = 0.4 + 0.1 * Math.random();
+    let fb = 0.3 + 0.1 * Math.random();
+    p.setFinalColor([fr, fg, fb, 0.6]);
+    
+    // velocity on the particle
+    let fx = 10 - 20 * Math.random();
+    let fy = 10 * Math.random();
+    p.setVelocity(fx, fy);
+    
+    // size delta
+    p.setSizeDelta(0.98);
+    
+    return p;
 }
 
 export default MyGame;
