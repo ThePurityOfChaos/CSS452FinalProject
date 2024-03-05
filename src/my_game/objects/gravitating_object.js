@@ -24,6 +24,10 @@ class GravitatingObject extends engine.GameObject {
     update()
     {
         // checking whether there are any collisions with a gravity particle OR if it's touching the ground
+        if(engine.input.isKeyPressed(engine.input.keys.Nine)){
+            this.mRenderComponent.collision();
+            this.mRenderComponent.update();
+        }
     }
 }
 
