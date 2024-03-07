@@ -41,7 +41,7 @@ class GravityRenderable extends SpriteRenderable {
         this.speed = speed;
     }
 
-    collision(){
+    collision(particle){
         // if we are planning to have different gravity particle sets with varying gravity force etc. 
         // we have to store the velocity and direction values in individual particles
         // for now I am using the gravity.js values
@@ -52,8 +52,8 @@ class GravityRenderable extends SpriteRenderable {
         this.currentDirection = engine.gravity.getDefaultDirection();
 
         // velocity is speed * cos(direction) for x, sin(direction) for y
-        this.currentVelocityX = this.speed * Math.cos(this.currentDirection);
-        this.currentVelocityY = this.speed * Math.sin(this.currentDirection);
+        this.currentVelocityX = this.currentVelocityX + this.speed * Math.cos(this.currentDirection);
+        this.currentVelocityY = this.currentVelocityY + this.speed * Math.sin(this.currentDirection);
     }
 
     update(){

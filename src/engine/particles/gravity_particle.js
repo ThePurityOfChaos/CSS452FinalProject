@@ -17,7 +17,17 @@ class GravityParticle extends Particle{
         super(texture,x,y,life);
         this.mAcceleration = [0, 0];
         this.mDrag = 1;
-
+        this.mForce = gravity.getGravityForce();
+    }
+    getDirection(){
+        //ChatGPT assisted with this somewhat in providing the existence of the Math.atan2 function. Since it returns radians, change to degrees.
+        return Math.atan2(this.mVelocity[0],this.mVelocity[1])*180/Math.PI;
+    }
+    getForce(){
+        return this.mForce;
+    }
+    setForce(force){
+        this.mForce = force;
     }
     getSize(){
         return 1;

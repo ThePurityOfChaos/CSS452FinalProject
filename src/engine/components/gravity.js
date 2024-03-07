@@ -147,6 +147,8 @@ function creatorFunc(atX, atY, direction){
     
     // size delta
     p.setSizeDelta(1);
+
+    arguments.length>3?p.setForce(arguments[3]):p.setForce(mGSystemForce);
     
     return p;
 }

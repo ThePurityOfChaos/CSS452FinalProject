@@ -92,7 +92,8 @@ class MyGame extends engine.Scene {
         let bounds = engine.gravity.getSystemBounds();
 
         this.mGravityGun = new engine.GravityParticleSet();
-        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0);
+        //x, y, num, perpetual, direction, (optional) custom force
+        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,10);
         
 
     }
