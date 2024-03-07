@@ -129,7 +129,7 @@ class MyGame extends engine.Scene {
         this.mParticles.update();
 
         // gravity object update
-        this.mGravityObject.update();
+        this.mGravityObject.update(this.mCamera);
 
         //Gravity System
         if (engine.input.isKeyClicked(engine.input.keys.P)) {     // incrementing density

@@ -45,11 +45,11 @@ class GravityRenderable extends SpriteRenderable {
         // if we are planning to have different gravity particle sets with varying gravity force etc. 
         // we have to store the velocity and direction values in individual particles
         // for now I am using the gravity.js values
-        this.speed = engine.gravity.getSystemSpeed();
+        this.speed = particle.getDirection();
 
         // we should definetely store the particle's direction in the particle class
         // this is not what we should have, I am just writing this line as a filler
-        this.currentDirection = engine.gravity.getDefaultDirection();
+        this.currentDirection = particle.getForce();
 
         // velocity is speed * cos(direction) for x, sin(direction) for y
         this.currentVelocityX = this.currentVelocityX + this.speed * Math.cos(this.currentDirection);
@@ -59,10 +59,24 @@ class GravityRenderable extends SpriteRenderable {
     update(){
         if(this.speed > 0){
             // might change this to lerp to make it look better
-            let xform = this.getXform();
-            xform.incXPosBy(this.currentVelocityX);
-            xform.incYPosBy(this.currentVelocityY);
+
+            // changing the x-value if the object didn't hit the ground yet
+            this.mXform.incXPosBy(this.currentVelocityX);
+
+            // changing the y-value if the ground is not hit or if the ground is hit but the velocity is positive
+            if(this.mXform.getYPos() <= 7){
+                if(this.currentVelocityY > 0){
+                    this.mXform.incYPosBy(this.currentVelocityY);
+                }
+            }
+            else{
+                this.mXform.incYPosBy(this.currentVelocityY);
+            }
+
+            // resetting values to zero after repositioning
             this.speed = 0;
+            this.currentVelocityX = 0;
+            this.currentVelocityY = 0;
         }
     }
 }
