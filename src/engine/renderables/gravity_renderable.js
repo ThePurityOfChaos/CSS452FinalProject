@@ -63,10 +63,24 @@ class GravityRenderable extends SpriteRenderable {
     update(){
         if(this.speed > 0){
             // might change this to lerp to make it look better
-            let xform = this.getXform();
-            xform.incXPosBy(this.currentVelocityX);
-            xform.incYPosBy(this.currentVelocityY);
+
+            // changing the x-value if the object didn't hit the ground yet
+            this.mXform.incXPosBy(this.currentVelocityX);
+
+            // changing the y-value if the ground is not hit or if the ground is hit but the velocity is positive
+            if(this.mXform.getYPos() <= 7){
+                if(this.currentVelocityY > 0){
+                    this.mXform.incYPosBy(this.currentVelocityY);
+                }
+            }
+            else{
+                this.mXform.incYPosBy(this.currentVelocityY);
+            }
+
+            // resetting values to zero after repositioning
             this.speed = 0;
+            this.currentVelocityX = 0;
+            this.currentVelocityY = 0;
         }
     }
 }

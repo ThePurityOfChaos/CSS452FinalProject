@@ -21,12 +21,18 @@ class GravitatingObject extends engine.GameObject {
         this.setRigidBody(r);
     }
 
-    update()
+    update(camera)
     {
-        // checking whether there are any collisions with a gravity particle OR if it's touching the ground
-        if(engine.input.isKeyPressed(engine.input.keys.Nine)){
-            this.mRenderComponent.collision();
-            this.mRenderComponent.update();
+        // testing whether the gravity renderable class's update function works
+        if(engine.input.isKeyClicked(engine.input.keys.Nine)){
+            let velocityX =  -5 + Math.random() * 10;
+            let velocityY = -5 + Math.random() * 5;
+
+            for(var i = 0; i < 3; i++){
+                this.mRenderComponent.setVelocity([velocityX, velocityY]);
+                this.mRenderComponent.setSpeed(10);
+                this.mRenderComponent.update();
+            }
         }
     }
 }
