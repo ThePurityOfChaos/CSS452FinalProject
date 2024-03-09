@@ -75,14 +75,9 @@ class GravityRenderable extends SpriteRenderable {
             
 
             // changing the y-value if the ground is not hit or if the ground is hit but the velocity is positive
-            if(this.mXform.getYPos() <= 7){
-                if(this.currentVelocityY > 0){
-                    this.mXform.incYPosBy(this.currentVelocityY);
-                }
-            }
-            else{
-                this.mXform.incYPosBy(this.currentVelocityY);
-            }
+            
+            this.mXform.incYPosBy(this.currentVelocityY);
+            
 
             if(engine.gravity.isModularSpace()){
                 let location = engine.gravity_functions.modularize(this.mXform.getXPos(),this.mXform.getYPos());
@@ -92,12 +87,12 @@ class GravityRenderable extends SpriteRenderable {
             else{
                 let bounds = engine.gravity.getSystemBounds();
                 let location = [this.mXform.getXPos(),this.mXform.getYPos()];
-                if(location[0] <bounds[0] || location [0] > bounds[2]){
+                if(location[0] <= bounds[0] || location [0] >= bounds[2]){
                     this.mXform.setXPos(location[0]<=bounds[0]?
                     bounds[0]:bounds[2]);
                     this.currentVelocityX = 0;
                 }
-                if(location[1] <bounds[1] || location [1] > bounds[3]){
+                if(location[1] <= bounds[1] || location [1] >= bounds[3]){
                     this.mXform.setYPos(location[1]<=bounds[1]?
                         bounds[1]:bounds[3]);
                     this.currentVelocityY = 0;

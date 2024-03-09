@@ -140,8 +140,8 @@ function creatorFunc(atX, atY, direction){
     let fy = mGSystemSpeed * Math.sin(thisDirection);
 
     if(customColors){
-    p.setColor([fy,fx,Math.abs(fx-fy),1]);
-    p.setFinalColor([fy,fx,Math.abs(fx-fy),1]);
+    p.setColor([fy,fx,Math.abs(fx-fy),0.05]);
+    p.setFinalColor([fy,fx,Math.abs(fx-fy),0.05]);
     }
     p.setVelocity(fx, fy);
     p.setDirection(thisDirection);

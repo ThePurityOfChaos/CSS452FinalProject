@@ -72,6 +72,8 @@ class MyGame extends engine.Scene {
         //initialize Gravity Objects
         this.mGravObjs = new engine.GameObjectSet();
         this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12))
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12))
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12))
 
         let y = 70;
         let x = 10;
