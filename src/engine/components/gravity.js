@@ -12,7 +12,7 @@ let mGSystemDirections = 1;
 let mGSystemDefaultDirection = 0.0;
 let mGSystemBounds = [0,0,0,0];
 let mGDensity = 3;
-let mGSystemForce = 5.0;
+let mGSystemForce = 0.05;
 let mGSystemSpeed = 10;
 let mGSystemLife = 10;
 let mGParticleStartColor = [1,1,1,1];
@@ -144,9 +144,10 @@ function creatorFunc(atX, atY, direction){
     p.setFinalColor([fy,fx,Math.abs(fx-fy),1]);
     }
     p.setVelocity(fx, fy);
-    
+    p.setDirection(thisDirection);
     // size delta
     p.setSizeDelta(1);
+    
 
     arguments.length>3?p.setForce(arguments[3]):p.setForce(mGSystemForce);
     

@@ -18,24 +18,29 @@ class GravityParticle extends Particle{
         this.mAcceleration = [0, 0];
         this.mDrag = 1;
         this.mForce = gravity.getGravityForce();
+        this.direction = null;
         this.colliding = false;
     }
     getDirection(){
-        //ChatGPT assisted with this somewhat in providing the existence of the Math.atan2 function. 
-        //Since it returns radians, no changes needed. Question asked: Given (x,y) return a direction in Javascript
-        return Math.atan2(this.mVelocity[0],this.mVelocity[1]);
+        return this.direction;
+    }
+    setDirection(direction){
+        this.direction = direction;
     }
     getForce(){
         return this.mForce;
     }
     setForce(force){
         this.mForce = force;
-    }
-    getSize(){
-        return 1;
     } 
+    getPosition(){
+        return this.mRenderComponent.getXform().getPosition();
+    }
+    killParticle(){
+        this.mCyclesToLive = -1;
+    }
     collide(gravObj){
-        if(gravObj.collision(this)){
+        if(gravObj.collide(this)){
             this.colliding = true;
             return true;
         }
@@ -45,8 +50,8 @@ class GravityParticle extends Particle{
         if(this.colliding && !this.collide(gravObj)){
             this.colliding = false;
             //mass-based test
-            if(false){
-                this.mCyclesToLive = 0;
+            if(true){
+                this.killParticle();
             }
             return true;
         }

@@ -24,9 +24,6 @@ class MyGame extends engine.Scene {
         this.mPlatforms = null;
         this.mBounds = null;
 
-        // Object affected by gravity
-        this.mGravityObject = null;
-
         // Draw controls
         this.mDrawBounds = false;
 
@@ -64,8 +61,6 @@ class MyGame extends engine.Scene {
         // initializing the platforms
         this.mPlatforms = new engine.GameObjectSet();
 
-        // initializing a gravity object
-        this.mGravityObject = new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12);
 
         this.mParticles = new engine.ParticleSet();
 
@@ -73,6 +68,10 @@ class MyGame extends engine.Scene {
 
         //initialize rigid bodies
         this.mAllObjs = new engine.GameObjectSet();
+
+        //initialize Gravity Objects
+        this.mGravObjs = new engine.GameObjectSet();
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12))
 
         let y = 70;
         let x = 10;
@@ -93,7 +92,7 @@ class MyGame extends engine.Scene {
 
         this.mGravityGun = new engine.GravityParticleSet();
         //x, y, num, perpetual, direction, (optional) custom force
-        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,10);
+        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,1);
         
 
     }
@@ -108,7 +107,7 @@ class MyGame extends engine.Scene {
 
         this.mPlatforms.draw(this.mCamera);
 
-        this.mGravityObject.draw(this.mCamera);
+        this.mGravObjs.draw(this.mCamera);
 
         this.mAllObjs.draw(this.mCamera);
 
@@ -128,8 +127,6 @@ class MyGame extends engine.Scene {
         // Particle System
         this.mParticles.update();
 
-        // gravity object update
-        this.mGravityObject.update(this.mCamera);
 
         //Gravity System
         if (engine.input.isKeyClicked(engine.input.keys.P)) {     // incrementing density
@@ -148,13 +145,11 @@ class MyGame extends engine.Scene {
             engine.gravity.setSystemDirections(engine.gravity.getSystemDirections() - 1);
             this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
-        if (engine.input.isKeyClicked(engine.input.keys.G)) {     // incrementing gravity force
-            engine.gravity.setGravityForce(engine.gravity.getGravityForce() + 1);
-            this.mGravityParticles = engine.gravity_functions.generateParticles();
+        if (engine.input.isKeyPressed(engine.input.keys.G)) {     // incrementing gravity force
+            engine.gravity.setGravityForce(engine.gravity.getGravityForce() + 0.001);
         }
-        if (engine.input.isKeyClicked(engine.input.keys.H)) {     // decrementing gravity force
-            engine.gravity.setGravityForce(engine.gravity.getGravityForce() - 1);
-            this.mGravityParticles = engine.gravity_functions.generateParticles();
+        if (engine.input.isKeyPressed(engine.input.keys.H)) {     // decrementing gravity force
+            engine.gravity.setGravityForce(engine.gravity.getGravityForce() - 0.001);
         }
         if (engine.input.isKeyPressed(engine.input.keys.W)){      // incrementing system speed
             engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() + 1);
@@ -196,9 +191,12 @@ class MyGame extends engine.Scene {
         //rigid bodies ( no gravity)
         this.mAllObjs.update(this.mCamera);
 
-        this.mGravityParticles.update();
+        // gravity object update
+        this.mGravObjs.update(this.mCamera);
 
-        this.mGravityGun.update();
+        this.mGravityParticles.update(this.mGravObjs);
+
+        this.mGravityGun.update(this.mGravObjs);
 
         
     }

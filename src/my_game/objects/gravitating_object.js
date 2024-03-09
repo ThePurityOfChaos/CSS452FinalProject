@@ -23,17 +23,9 @@ class GravitatingObject extends engine.GameObject {
 
     update(camera)
     {
-        // testing whether the gravity renderable class's update function works
-        if(engine.input.isKeyClicked(engine.input.keys.Nine)){
-            let velocityX =  -5 + Math.random() * 10;
-            let velocityY = -5 + Math.random() * 5;
-
-            for(var i = 0; i < 3; i++){
-                this.mRenderComponent.setVelocity([velocityX, velocityY]);
-                this.mRenderComponent.setSpeed(10);
+        
                 this.mRenderComponent.update();
-            }
-        }
+       
     }
 }
 
