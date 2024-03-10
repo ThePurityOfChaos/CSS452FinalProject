@@ -1,11 +1,11 @@
 /*
- * File: MyGame.js 
- * This is the logic of our game. 
+ * File: GravitySimulation.js 
+ * This is the gravity simulation game
  */
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-import engine from "../engine/index.js";
+import engine from "../../../engine/index.js";
 import GravitySimulation from "./gravity_simulation_main.js";
 
 GravitySimulation.prototype.createBounds = function() {

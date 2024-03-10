@@ -5,8 +5,8 @@
  */
 
 import engine from "../engine/index.js";
-import MyGame from "./my_game_bounds.js";
-import GravitySimulation from "./games/gravity_simulation/gravity_simulation_main.js";
+import MyGame from "./my_game_main.js";
+import GravitySimulation from "./games/gravity_simulation/gravity_simulation.js";
 
 MyGame.prototype.chooseGame = function(gameCode) {
     switch (gameCode) {
