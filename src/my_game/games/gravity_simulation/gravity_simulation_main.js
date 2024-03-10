@@ -9,6 +9,7 @@ import Hero from "../../objects/hero.js";
 import Minion from "../../objects/minion.js";
 import GravitatingObject from "../../objects/gravitating_object.js";
 import GravityEmitter from "../../../engine/particles/gravity_emitter.js";
+import GGRunner from "../../objects/gg_game_runner.js";
 import MyGame from "../../my_game_main.js";
 
 class GravitySimulation extends MyGame {
@@ -31,6 +32,8 @@ class GravitySimulation extends MyGame {
         // Particle Support
         this.mParticles = null;
         this.mPSDrawBounds = false;
+
+        this.runner = null;
     }
 
 
@@ -97,7 +100,7 @@ class GravitySimulation extends MyGame {
         //x, y, num, perpetual, direction, (optional) custom force
         this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,1,1);
         
-
+        this.mGravObjs.addToSet(new GGRunner(this.kMinionSprite, 50, 50, [4,4], true, 12));
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -120,6 +123,7 @@ class GravitySimulation extends MyGame {
 
         this.mGravityGun.draw(this.mCamera);
         
+        // this.runner.draw(this.mCamera);
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -130,6 +134,7 @@ class GravitySimulation extends MyGame {
         // Particle System
         this.mParticles.update();
 
+        // this.runner.update();
 
         //Gravity System
         if (engine.input.isKeyClicked(engine.input.keys.P)) {     // incrementing density
@@ -148,7 +153,7 @@ class GravitySimulation extends MyGame {
             engine.gravity.setSystemDirections(engine.gravity.getSystemDirections() - 1);
             this.mGravityParticles = engine.gravity_functions.generateParticles();
         }
-        if (engine.input.isKeyPressed(engine.input.keys.G)) {     // incrementing gravity force
+        if (engine.input.isKeyPressed(engine.input.keys.U)) {     // incrementing gravity force
             engine.gravity.setGravityForce(engine.gravity.getGravityForce() + 0.001);
         }
         if (engine.input.isKeyPressed(engine.input.keys.H)) {     // decrementing gravity force
@@ -157,7 +162,7 @@ class GravitySimulation extends MyGame {
         if (engine.input.isKeyPressed(engine.input.keys.W)){      // incrementing system speed
             engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() + 1);
         }
-        if (engine.input.isKeyPressed(engine.input.keys.S)){      // decrementing system speed
+        if (engine.input.isKeyPressed(engine.input.keys.Three)){      // decrementing system speed
             engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() - 1);
         }
         if (engine.input.isKeyPressed(engine.input.keys.A)){      // incrementing system direction
