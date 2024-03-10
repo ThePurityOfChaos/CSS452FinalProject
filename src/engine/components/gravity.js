@@ -15,11 +15,12 @@ let mGDensity = 3;
 let mGSystemForce = 0.05;
 let mGSystemSpeed = 10;
 let mGSystemLife = 10;
+let mGSystemMaxForce = 1;
 let mGParticleStartColor = [1,1,1,1];
 let mGParticleEndColor = [1,1,1,1];
-let randomParticles = false;
-let modularSpace = false;
-let customColors = false;
+let mGRandomParticles = false;
+let mGModularSpace = false;
+let mGCustomColors = false;
 
 //input: int
 function setDensity(newDensity){
@@ -67,6 +68,12 @@ function setGravityForce(force){
 function getGravityForce(){
     return mGSystemForce;
 }
+function setMaxForce(force){
+    mGSystemMaxForce = force;
+}
+function getMaxForce(){
+    return mGSystemMaxForce;
+}
 //input: int/float
 function setDefaultDirection(direction){
     mGSystemDefaultDirection = direction % 360;
@@ -89,23 +96,23 @@ function getParticleEndColor(){
     return mGParticleEndColor;
 }
 function toggleRandomParticles(){
-    randomParticles=!randomParticles;
+    mGRandomParticles=!mGRandomParticles;
 }
 function getRandomParticles(){
-    return randomParticles;
+    return mGRandomParticles;
 }
 function toggleCustomColors(){
-    customColors=!customColors;
+    mGCustomColors=!mGCustomColors;
 }
 function usingCustomColors(){
-    return customColors;
+    return mGCustomColors;
 }
 
 function toggleModularSpace(){
-    modularSpace = !modularSpace;
+    mGModularSpace = !mGModularSpace;
 }
 function isModularSpace(){
-    return modularSpace;
+    return mGModularSpace;
 }
 //input: int/float
 function setLifespan(lifespan){
@@ -139,7 +146,7 @@ function creatorFunc(atX, atY, direction){
     let fx = mGSystemSpeed * Math.cos(thisDirection);
     let fy = mGSystemSpeed * Math.sin(thisDirection);
 
-    if(customColors){
+    if(mGCustomColors){
     p.setColor([fy,fx,Math.abs(fx-fy),0.05]);
     p.setFinalColor([fy,fx,Math.abs(fx-fy),0.05]);
     }
@@ -150,6 +157,7 @@ function creatorFunc(atX, atY, direction){
     
 
     arguments.length>3?p.setForce(arguments[3]):p.setForce(mGSystemForce);
+    arguments.length>4?p.setMaxForce(arguments[4]):p.setMaxForce(mGSystemMaxForce);
     
     return p;
 }
@@ -160,8 +168,8 @@ export {
     toggleRandomParticles, toggleModularSpace, toggleCustomColors,
     getRandomParticles, isModularSpace, usingCustomColors,
     //getters and setters
-    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getSystemDefaultDirection, getLifespan,
-    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setSystemDefaultDirection, setLifespan,
+    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getSystemDefaultDirection, getLifespan, getMaxForce,
+    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setSystemDefaultDirection, setLifespan, setMaxForce,
     getSystemSpeed,
     setSystemSpeed
 

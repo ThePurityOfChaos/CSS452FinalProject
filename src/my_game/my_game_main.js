@@ -71,9 +71,9 @@ class MyGame extends engine.Scene {
 
         //initialize Gravity Objects
         this.mGravObjs = new engine.GameObjectSet();
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12))
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12))
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12))
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
 
         let y = 70;
         let x = 10;
@@ -94,7 +94,7 @@ class MyGame extends engine.Scene {
 
         this.mGravityGun = new engine.GravityParticleSet();
         //x, y, num, perpetual, direction, (optional) custom force
-        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,1);
+        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,1,1);
         
 
     }
@@ -192,10 +192,10 @@ class MyGame extends engine.Scene {
         
         //rigid bodies ( no gravity)
         this.mAllObjs.update(this.mCamera);
-
+        engine.physics.processSetToSet(this.mAllObjs, this.mPlatforms, this.mCollisionInfos);
         // gravity object update
         this.mGravObjs.update(this.mCamera);
-
+        engine.physics.processSetToSet(this.mGravObjs, this.mPlatforms, this.mCollisionInfos);
         this.mGravityParticles.update(this.mGravObjs);
 
         this.mGravityGun.update(this.mGravObjs);

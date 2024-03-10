@@ -18,15 +18,15 @@ class GravitatingObject extends engine.GameObject {
 
         // generating a rigid shape for this object 
         let r = new engine.RigidRectangle(this.getXform(), 3, 4);
+        r.setAcceleration(0,-5);
         this.setRigidBody(r);
+        this.toggleDrawRigidShape();
+    }
+    update(){
+        super.update();
+        this.mRenderComponent.update();
     }
 
-    update(camera)
-    {
-        
-                this.mRenderComponent.update();
-       
-    }
 }
 
 export default GravitatingObject;

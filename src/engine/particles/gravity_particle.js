@@ -18,6 +18,7 @@ class GravityParticle extends Particle{
         this.mAcceleration = [0, 0];
         this.mDrag = 1;
         this.mForce = gravity.getGravityForce();
+        this.mMaxForce = gravity.getMaxForce();
         this.direction = null;
         this.colliding = false;
     }
@@ -33,6 +34,12 @@ class GravityParticle extends Particle{
     setForce(force){
         this.mForce = force;
     } 
+    getMaxForce(){
+        return this.mMaxForce;
+    }
+    setMaxForce(force){
+        this.mMaxForce = force;
+    }
     getPosition(){
         return this.mRenderComponent.getXform().getPosition();
     }
