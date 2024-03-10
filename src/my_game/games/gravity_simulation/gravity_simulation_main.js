@@ -206,7 +206,20 @@ class GravitySimulation extends MyGame {
 
         this.mGravityGun.update(this.mGravObjs);
 
-        
+
+        // transitioning between the games
+
+        if(engine.input.isKeyClicked(engine.input.keys.G)){
+            this.next("G");
+        }
+
+        if(engine.input.isKeyClicked(engine.input.keys.N)){
+            this.next("N");
+        }
+
+        if(engine.input.isKeyClicked(engine.input.keys.S)){
+            this.next("S");
+        }
         
     }
     
