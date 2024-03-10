@@ -6,7 +6,33 @@
 
 import engine from "../engine/index.js";
 import MyGame from "./my_game_bounds.js";
+import GravitySimulation from "./games/gravity_simulation/gravity_simulation_main.js";
 
+MyGame.prototype.chooseGame = function(gameCode) {
+    switch (gameCode) {
+        case "G":
+          return new GravitySimulation;
+          break;
+        case "N":
+          return new GravityGunGame;
+          break;
+        case "S":
+          return new SnowRunnerGame;
+          break;
+        default:
+          console.log("error: no game with the code " + gameCode);
+          return null;
+    }
+}
+
+// 
+MyGame.prototype.next = function(gameCode) {      
+    engine.Scene.prototype.next.call(this);  // this is calling Scene.next()
+
+    // next scene to run
+    let nextLevel = this.chooseGame(gameCode);  // next level to be loaded
+    nextLevel.start();
+}
 
 window.onload = function () {
     engine.init("GLCanvas");
