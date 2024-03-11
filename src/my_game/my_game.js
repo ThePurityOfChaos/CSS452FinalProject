@@ -8,6 +8,7 @@ import engine from "../engine/index.js";
 import MyGame from "./my_game_main.js";
 import GravitySimulation from "./games/gravity_simulation/gravity_simulation.js";
 import GravityGunGame from "./games/gravity_gun_game/gravity_gun_game.js";
+import SnowRunnerGame from "./games/snow_runner_game/snow_runner_game.js";
 
 MyGame.prototype.chooseGame = function(gameCode) {
     switch (gameCode) {
