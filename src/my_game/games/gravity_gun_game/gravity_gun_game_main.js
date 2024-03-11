@@ -6,6 +6,7 @@
 
 import MyGame from "../../my_game_main.js";
 import engine from "../../../engine/index.js";
+import Star from "../../objects/star_object.js";
 
 class GravityGunGame extends MyGame {
     constructor() {
@@ -13,17 +14,22 @@ class GravityGunGame extends MyGame {
 
         // The camera to view the scene
         this.mCamera = null;
-        this.kBg = "assets/GameBackground.jpg"
+        this.mBg = null;
+        this.mStar = null;
+        this.kBg = "assets/GameBackground.jpg";
+        this.kStar = "assets/StarSpriteSheet.png";
     }
 
 
 
     load() {
         engine.texture.load(this.kBg);
+        engine.texture.load(this.kStar);
     }
 
     unload() {
         engine.texture.unload(this.kBg);
+        engine.texture.unload(this.kStar);
     }
 
     init() {
@@ -34,7 +40,7 @@ class GravityGunGame extends MyGame {
             [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
         );
         // sets the background to gray
-        this.mCamera.setBackgroundColor([0, 0, 0, 0]);
+        this.mCamera.setBackgroundColor([1, 1, 1, 0]);
 
         // Large background image
         let bgR = new engine.SpriteRenderable(this.kBg);
@@ -43,23 +49,24 @@ class GravityGunGame extends MyGame {
         bgR.getXform().setPosition(50, 35);
         this.mBg = new engine.GameObject(bgR);
         
+        this.mStar = new Star(this.kStar, [50, 40], [15, 15]);
 
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
     // importantly, make sure to _NOT_ change any state.
     draw() {
-        // Step A: clear the canvas
-        engine.clearCanvas([0.9, 0.9, 0.9, 0]); // clear to light gray
-
         this.mCamera.setViewAndCameraMatrix();
         this.mBg.draw(this.mCamera);
+        this.mStar.draw(this.mCamera);
         
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
     // anything from this function!
     update() {
+
+        this.mStar.update();
 
         if(engine.input.isKeyClicked(engine.input.keys.G)){
             this.next("G");
