@@ -10,7 +10,6 @@ import Minion from "../../objects/minion.js";
 import GravitatingObject from "../../objects/gravitating_object.js";
 import GGRunner from "../../objects/gg_game_runner.js";
 import MyGame from "../../my_game_main.js";
-import engine from "../../../engine/index.js";
 import Star from "../../objects/star_object.js";
 
 class GravityGunGame extends MyGame {
@@ -73,6 +72,14 @@ class GravityGunGame extends MyGame {
         );
         // sets the background to gray
         this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+        // Large background image
+        let bgR = new engine.SpriteRenderable(this.kBg);
+        bgR.setElementPixelPositions(0, 800, 0, 600);
+        bgR.getXform().setSize(100, 100);
+        bgR.getXform().setPosition(50, 35);
+        this.mBg = new engine.GameObject(bgR);
+        
+        this.mStar = new Star(this.kStar, [50, 40], [15, 15]);
 
         // initializing the platforms
         this.mPlatforms = new engine.GameObjectSet();
@@ -107,17 +114,10 @@ class GravityGunGame extends MyGame {
 
         this.mGravityGun = new engine.GravityParticleSet();
         //x, y, num, perpetual, direction, (optional) custom speed, (optional) custom force, (optional) custom max force
-        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,200,1,10);
+        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,21,1,10);
         this.mCamera.setBackgroundColor([1, 1, 1, 0]);
 
-        // Large background image
-        let bgR = new engine.SpriteRenderable(this.kBg);
-        bgR.setElementPixelPositions(0, 800, 0, 600);
-        bgR.getXform().setSize(100, 100);
-        bgR.getXform().setPosition(50, 35);
-        this.mBg = new engine.GameObject(bgR);
         
-        this.mStar = new Star(this.kStar, [50, 40], [15, 15]);
 
     }
 
@@ -128,6 +128,8 @@ class GravityGunGame extends MyGame {
         engine.clearCanvas([1, 1, 1, 1.0]); // clear to light gray
 
         this.mCamera.setViewAndCameraMatrix();
+        this.mBg.draw(this.mCamera);
+        this.mStar.draw(this.mCamera);
 
         this.mPlatforms.draw(this.mCamera);
 
@@ -141,8 +143,7 @@ class GravityGunGame extends MyGame {
 
         this.mGravityGun.draw(this.mCamera);
         // this.runner.draw(this.mCamera);
-        this.mBg.draw(this.mCamera);
-        this.mStar.draw(this.mCamera);
+        
         
     }
 
@@ -180,16 +181,19 @@ class GravityGunGame extends MyGame {
 
         this.mStar.update();
 
-        if(engine.input.isKeyClicked(engine.input.keys.G)){
-            this.next("G");
-        }
+        //transitioning between the games
+        if(engine.input.isKeyPressed(engine.input.keys.Zero)){
+            if(engine.input.isKeyClicked(engine.input.keys.G)){
+                this.next("G");
+            }
 
-        if(engine.input.isKeyClicked(engine.input.keys.N)){
-            this.next("N");
-        }
+            if(engine.input.isKeyClicked(engine.input.keys.N)){
+                this.next("N");
+            }
 
-        if(engine.input.isKeyClicked(engine.input.keys.S)){
-            this.next("S");
+            if(engine.input.isKeyClicked(engine.input.keys.S)){
+                this.next("S");
+            }
         }
         
     }

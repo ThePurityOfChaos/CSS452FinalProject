@@ -8,6 +8,7 @@ import engine from "../../../engine/index.js";
 import Hero from "../../objects/hero.js";
 import Minion from "../../objects/minion.js";
 import GravitatingObject from "../../objects/gravitating_object.js";
+import GravityEmitter from "../../../engine/particles/gravity_emitter.js";
 import GGRunner from "../../objects/gg_game_runner.js";
 import MyGame from "../../my_game_main.js";
 
@@ -75,8 +76,8 @@ class GravitySimulation extends MyGame {
         //initialize Gravity Objects
         this.mGravObjs = new engine.GameObjectSet();
         this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        //this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        //this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
 
         let y = 70;
         let x = 10;
@@ -111,6 +112,10 @@ class GravitySimulation extends MyGame {
         this.mGravityParticles.draw(this.mCamera);
         if (this.mPSDrawBounds)
             this.mGravityParticles.drawMarkers(this.mCamera);
+
+        
+        
+        // this.runner.draw(this.mCamera);
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -187,19 +192,22 @@ class GravitySimulation extends MyGame {
         engine.physics.processSetToSet(this.mGravObjs, this.mPlatforms, this.mCollisionInfos);
         this.mGravityParticles.update(this.mGravObjs);
 
+       
+
 
         // transitioning between the games
+        if(engine.input.isKeyPressed(engine.input.keys.Zero)){
+            if(engine.input.isKeyClicked(engine.input.keys.G)){
+                this.next("G");
+            }
 
-        if(engine.input.isKeyClicked(engine.input.keys.G)){
-            this.next("G");
-        }
+            if(engine.input.isKeyClicked(engine.input.keys.N)){
+                this.next("N");
+            }
 
-        if(engine.input.isKeyClicked(engine.input.keys.N)){
-            this.next("N");
-        }
-
-        if(engine.input.isKeyClicked(engine.input.keys.S)){
-            this.next("S");
+            if(engine.input.isKeyClicked(engine.input.keys.S)){
+                this.next("S");
+            }
         }
         
     }
