@@ -8,7 +8,6 @@ import engine from "../../../engine/index.js";
 import Hero from "../../objects/hero.js";
 import Minion from "../../objects/minion.js";
 import GravitatingObject from "../../objects/gravitating_object.js";
-import GravityEmitter from "../../../engine/particles/gravity_emitter.js";
 import GGRunner from "../../objects/gg_game_runner.js";
 import MyGame from "../../my_game_main.js";
 
@@ -76,8 +75,8 @@ class GravitySimulation extends MyGame {
         //initialize Gravity Objects
         this.mGravObjs = new engine.GameObjectSet();
         this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
+        //this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
+        //this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
 
         let y = 70;
         let x = 10;
@@ -93,14 +92,6 @@ class GravitySimulation extends MyGame {
         engine.gravity.setDefaultDirection(270.0);
         this.mGravityParticles = engine.gravity_functions.generateParticles();
 
-        //Gravity Gun
-        let bounds = engine.gravity.getSystemBounds();
-
-        this.mGravityGun = new engine.GravityParticleSet();
-        //x, y, num, perpetual, direction, (optional) custom force
-        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,1,1);
-        
-        this.mGravObjs.addToSet(new GGRunner(this.kMinionSprite, 50, 50, [4,4], true, 12));
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -120,10 +111,6 @@ class GravitySimulation extends MyGame {
         this.mGravityParticles.draw(this.mCamera);
         if (this.mPSDrawBounds)
             this.mGravityParticles.drawMarkers(this.mCamera);
-
-        this.mGravityGun.draw(this.mCamera);
-        
-        // this.runner.draw(this.mCamera);
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -162,7 +149,7 @@ class GravitySimulation extends MyGame {
         if (engine.input.isKeyPressed(engine.input.keys.W)){      // incrementing system speed
             engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() + 1);
         }
-        if (engine.input.isKeyPressed(engine.input.keys.Three)){      // decrementing system speed
+        if (engine.input.isKeyPressed(engine.input.keys.S)){      // decrementing system speed
             engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() - 1);
         }
         if (engine.input.isKeyPressed(engine.input.keys.A)){      // incrementing system direction
@@ -172,10 +159,6 @@ class GravitySimulation extends MyGame {
         if (engine.input.isKeyPressed(engine.input.keys.D)){      // decrementing system direction
             engine.gravity.setSystemDefaultDirection(engine.gravity.getSystemDefaultDirection() - 1.0);
         }
-        if(engine.input.isKeyPressed(engine.input.keys.Left))
-        this.mGravityGun.getEmitterAt(0).move(-0.25,0);
-        if(engine.input.isKeyPressed(engine.input.keys.Right))
-        this.mGravityGun.getEmitterAt(0).move(0.25,0);
 
         if(engine.input.isKeyPressed(engine.input.keys.J)){
             engine.gravity.setLifespan(engine.gravity.getLifespan()+1);
@@ -202,11 +185,7 @@ class GravitySimulation extends MyGame {
         // gravity object update
         this.mGravObjs.update(this.mCamera);
         engine.physics.processSetToSet(this.mGravObjs, this.mPlatforms, this.mCollisionInfos);
-        this.mGravityParticles.update(this.mGravObjs);
-
-        this.mGravityGun.update(this.mGravObjs);
-
-        
+        this.mGravityParticles.update(this.mGravObjs); 
         
     }
     

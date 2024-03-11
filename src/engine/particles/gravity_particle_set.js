@@ -7,7 +7,14 @@ class GravityParticleSet extends ParticleSet{
 
     addEmitterAt(x, y, n, perpetual, direction) {
         let e;
-        arguments.length>6?e= new GravityEmitter(x,y,n,perpetual,direction,arguments[5],arguments[6]):arguments.length>5?e = new GravityEmitter(x, y, n, perpetual, direction,arguments[5]):e = new GravityEmitter(x, y, n, perpetual, direction);
+        //speed, force, max force
+        arguments.length>7?e= new GravityEmitter(x,y,n,perpetual,direction,arguments[5],arguments[6],arguments[7]):
+        //speed, force
+        arguments.length>6?e= new GravityEmitter(x,y,n,perpetual,direction,arguments[5],arguments[6]):
+        //speed
+        arguments.length>5?e = new GravityEmitter(x, y, n, perpetual, direction,arguments[5]):
+        //standard
+        e = new GravityEmitter(x, y, n, perpetual, direction);
         this.mEmitterSet.push(e);
     }
     getEmitterAt(index){

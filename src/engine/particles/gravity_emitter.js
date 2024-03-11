@@ -17,8 +17,9 @@ class GravityEmitter extends ParticleEmitter{
         this.baseNum = num;
         this.kMinToEmit = 1;
         this.direction = direction;
-        arguments.length>5?this.speed = arguments[5]:this.speed = gravity.getGravityForce();
-        arguments.length>6?this.mMaxForce = arguments[6]:this.mMaxForce = gravity.getMaxForce();
+        arguments.length>5?this.speed = arguments[5]:this.speed = null;
+        arguments.length>6?this.force = arguments[6]:this.force = null;
+        arguments.length>7?this.mMaxForce = arguments[7]:this.mMaxForce = null;
     }
 
     emitParticles(pSet){
@@ -33,7 +34,7 @@ class GravityEmitter extends ParticleEmitter{
         this.mNumRemains -= numToEmit;
         let i, p;
         for (i = 0; i < numToEmit; i++) {
-            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.direction, this.speed, this.mMaxForce);
+            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.direction, this.speed!=null?this.speed:gravity.getSystemSpeed(), this.force!=null?this.force:gravity.getGravityForce(), this.mMaxForce!=null?this.mMaxForce:gravity.getMaxForce());
             pSet.addToSet(p);
         }
         if(this.perpetual)

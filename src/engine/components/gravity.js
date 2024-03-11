@@ -143,8 +143,10 @@ function creatorFunc(atX, atY, direction){
     
     // velocity on the particle, in radians
     let thisDirection = gravityFunctions.findDirection(direction);
-    let fx = mGSystemSpeed * Math.cos(thisDirection);
-    let fy = mGSystemSpeed * Math.sin(thisDirection);
+    let thisSpeed = arguments.length>3?arguments[3]:mGSystemSpeed;
+    
+    let fx = thisSpeed * Math.cos(thisDirection);
+    let fy = thisSpeed * Math.sin(thisDirection);
 
     if(mGCustomColors){
     p.setColor([fy,fx,Math.abs(fx-fy),0.05]);
@@ -155,9 +157,8 @@ function creatorFunc(atX, atY, direction){
     // size delta
     p.setSizeDelta(1);
     
-
-    arguments.length>3?p.setForce(arguments[3]):p.setForce(mGSystemForce);
-    arguments.length>4?p.setMaxForce(arguments[4]):p.setMaxForce(mGSystemMaxForce);
+    arguments.length>4?p.setForce(arguments[4]):p.setForce(mGSystemForce);
+    arguments.length>5?p.setMaxForce(arguments[5]):p.setMaxForce(mGSystemMaxForce);
     
     return p;
 }

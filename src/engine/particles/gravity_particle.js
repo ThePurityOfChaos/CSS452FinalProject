@@ -48,13 +48,13 @@ class GravityParticle extends Particle{
     }
     collide(gravObj){
         if(gravObj.collide(this)){
-            this.colliding = true;
+            this.colliding = gravObj;
             return true;
         }
         return false;
     }
     wasColliding(gravObj){
-        if(this.colliding && !this.collide(gravObj)){
+        if(this.colliding == gravObj && !this.collide(gravObj)){
             this.colliding = false;
             //mass-based test
             if(true){
