@@ -132,14 +132,13 @@ function creatorFunc(atX, atY, direction){
     let life = mGSystemLife;
 
     let p = new GravityParticle(defaultResources.getDefaultPSTexture(), dx, dy, life);
-    p.setColor(mGParticleStartColor);
+    
     
     // size of the particle
     let r = 1;
     p.setSize(r, r);
     
-    // final color
-    p.setFinalColor(mGParticleEndColor);
+    
     
     // velocity on the particle, in radians
     let thisDirection = gravityFunctions.findDirection(direction);
@@ -148,10 +147,7 @@ function creatorFunc(atX, atY, direction){
     let fx = thisSpeed * Math.cos(thisDirection);
     let fy = thisSpeed * Math.sin(thisDirection);
 
-    if(mGCustomColors){
-    p.setColor([fy,fx,Math.abs(fx-fy),0.05]);
-    p.setFinalColor([fy,fx,Math.abs(fx-fy),0.05]);
-    }
+    
     p.setVelocity(fx, fy);
     p.setDirection(thisDirection);
     // size delta
@@ -159,7 +155,14 @@ function creatorFunc(atX, atY, direction){
     
     arguments.length>4?p.setForce(arguments[4]):p.setForce(mGSystemForce);
     arguments.length>5?p.setMaxForce(arguments[5]):p.setMaxForce(mGSystemMaxForce);
-    
+    let startColor = arguments.length>6?arguments[6]:mGParticleStartColor;
+    p.setColor(startColor);
+    let endColor = arguments.length>7?arguments[7]:mGParticleEndColor;
+    p.setFinalColor(endColor);
+    if(mGCustomColors){
+        p.setColor([fy,fx,Math.abs(fx-fy),0.05]);
+        p.setFinalColor([fy,fx,Math.abs(fx-fy),0.05]);
+        }
     return p;
 }
 export {

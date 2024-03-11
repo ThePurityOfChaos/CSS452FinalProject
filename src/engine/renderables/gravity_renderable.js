@@ -77,9 +77,9 @@ class GravityRenderable extends SpriteRenderable {
         if(this.slowColorChange == 0){
             let color = this.getColor();
             if(this.modularChange)
-            this.setColor([(color[0]+this.redChange)%1,(color[1]+this.greenChange)%1,(color[2]+this.blueChange)%1,1]);
+            this.setColor([(color[0]+this.redChange)%1,(color[1]+this.greenChange)%1,(color[2]+this.blueChange)%1,color[3]]);
             else
-            this.setColor([(color[0]+this.redChange),(color[1]+this.greenChange),(color[2]+this.blueChange),1]);
+            this.setColor([(color[0]+this.redChange),(color[1]+this.greenChange),(color[2]+this.blueChange),color[3]]);
         }
         this.slowColorChange = (this.slowColorChange + 1) % this.slowAmount;
 

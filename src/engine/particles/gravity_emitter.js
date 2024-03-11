@@ -17,9 +17,15 @@ class GravityEmitter extends ParticleEmitter{
         this.baseNum = num;
         this.kMinToEmit = 1;
         this.direction = direction;
+        this.startColor = gravity.getParticleStartColor();
+        this.endColor = gravity.getParticleEndColor();
         arguments.length>5?this.speed = arguments[5]:this.speed = null;
         arguments.length>6?this.force = arguments[6]:this.force = null;
         arguments.length>7?this.mMaxForce = arguments[7]:this.mMaxForce = null;
+    }
+    setColors(color,color2){
+        this.startColor = color;
+        this.endColor = color2;
     }
 
     emitParticles(pSet){
@@ -33,8 +39,13 @@ class GravityEmitter extends ParticleEmitter{
         // Left for future emitting.                            
         this.mNumRemains -= numToEmit;
         let i, p;
+        //garbage code
         for (i = 0; i < numToEmit; i++) {
-            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.direction, this.speed!=null?this.speed:gravity.getSystemSpeed(), this.force!=null?this.force:gravity.getGravityForce(), this.mMaxForce!=null?this.mMaxForce:gravity.getMaxForce());
+            p = this.mParticleCreator(this.mEmitPosition[0], this.mEmitPosition[1],this.direction, 
+                this.speed!=null?this.speed:gravity.getSystemSpeed(), 
+                this.force!=null?this.force:gravity.getGravityForce(), 
+                this.mMaxForce!=null?this.mMaxForce:gravity.getMaxForce(), 
+                this.startColor, this.endColor);
             pSet.addToSet(p);
         }
         if(this.perpetual)

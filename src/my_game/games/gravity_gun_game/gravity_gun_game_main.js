@@ -106,6 +106,10 @@ class GravityGunGame extends MyGame {
         engine.gravity.setLifespan(180);
         engine.gravity.setSystemSpeed(2);
         engine.gravity.setDensity(3);
+        engine.gravity.setSystemSpeed(21);
+        engine.gravity.setGravityForce(0.01);
+        engine.gravity.setParticleStartColor([0,0,0,0]);
+        engine.gravity.setParticleEndColor([0,0,0,0]);
 
         this.mGravityParticles = engine.gravity_functions.generateParticles();
 
@@ -114,7 +118,8 @@ class GravityGunGame extends MyGame {
 
         this.mGravityGun = new engine.GravityParticleSet();
         //x, y, num, perpetual, direction, (optional) custom speed, (optional) custom force, (optional) custom max force
-        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,21,1,10);
+        this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,21,0.2,1);
+        this.mGravityGun.getEmitterAt(0).setColors([1,0,0,1],[1,0,0,1]);
         this.mCamera.setBackgroundColor([1, 1, 1, 0]);
 
         
@@ -129,7 +134,7 @@ class GravityGunGame extends MyGame {
 
         this.mCamera.setViewAndCameraMatrix();
         this.mBg.draw(this.mCamera);
-        this.mStar.draw(this.mCamera);
+        
 
         this.mPlatforms.draw(this.mCamera);
 
@@ -143,6 +148,7 @@ class GravityGunGame extends MyGame {
 
         this.mGravityGun.draw(this.mCamera);
         // this.runner.draw(this.mCamera);
+        this.mStar.draw(this.mCamera);
         
         
     }
