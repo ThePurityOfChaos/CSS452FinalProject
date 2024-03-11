@@ -14,7 +14,7 @@ class Star extends GameObject {
         this.mRenderComponent.setColor([1, 1, 1, 0]);
         this.mRenderComponent.getXform().setPosition(position[0], position[1]);
         this.mRenderComponent.getXform().setSize(5,10);
-        this.mRenderComponent.setSpriteSequence(256, 1.3, 100, 256, 5, 0);
+        this.mRenderComponent.setSpriteSequence(256, 1, 100, 256, 5, 0);
         this.mRenderComponent.setAnimationType(0);
         this.mRenderComponent.setAnimationSpeed(7);
         this.mRenderComponent._initAnimation();

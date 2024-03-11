@@ -72,6 +72,8 @@ class GravityGunGame extends MyGame {
         );
         // sets the background to gray
         this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+        //lighten up the place, will 'ya?
+        engine.defaultResources.setGlobalAmbientColor([1,1,1,1]);
         // Large background image
         let bgR = new engine.SpriteRenderable(this.kBg);
         bgR.setElementPixelPositions(0, 800, 0, 600);
@@ -79,7 +81,7 @@ class GravityGunGame extends MyGame {
         bgR.getXform().setPosition(50, 35);
         this.mBg = new engine.GameObject(bgR);
         
-        this.mStar = new Star(this.kStar, [50, 40], [15, 15]);
+        this.mStar = new Star(this.kStar, [80, 60], [15, 15]);
 
         // initializing the platforms
         this.mPlatforms = new engine.GameObjectSet();
@@ -94,10 +96,7 @@ class GravityGunGame extends MyGame {
 
         //initialize Gravity Objects
         this.mGravObjs = new engine.GameObjectSet();
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        this.mGravObjs.addToSet(new GGRunner(this.kMinionSprite, 50, 50, [4,4], true, 12));
+        this.mGravObjs.addToSet(new GGRunner(this.kMinionSprite, 10, 10, [4,4], true, 12));
 
         //Gravity System
         engine.gravity.setSystemBounds([3.5,6],[96.5,74]);
@@ -110,6 +109,7 @@ class GravityGunGame extends MyGame {
         engine.gravity.setGravityForce(0.01);
         engine.gravity.setParticleStartColor([0,0,0,0]);
         engine.gravity.setParticleEndColor([0,0,0,0]);
+        this.showColor = false;
 
         this.mGravityParticles = engine.gravity_functions.generateParticles();
 
@@ -186,6 +186,14 @@ class GravityGunGame extends MyGame {
         this.mGravityGun.update(this.mGravObjs);
 
         this.mStar.update();
+        
+        if(engine.input.isKeyClicked(engine.input.keys.One)){
+            this.showColor = !this.showColor;
+            let temp = this.showColor?1:0;
+            engine.gravity.setParticleStartColor([temp,temp,temp,temp]);
+            engine.gravity.setParticleEndColor([temp,temp,temp,temp]);
+        this.mGravityParticles = engine.gravity_functions.generateParticles();
+        }
 
         //transitioning between the games
         if(engine.input.isKeyPressed(engine.input.keys.Zero)){
