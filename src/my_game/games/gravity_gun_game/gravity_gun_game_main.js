@@ -10,6 +10,8 @@ import Minion from "../../objects/minion.js";
 import GravitatingObject from "../../objects/gravitating_object.js";
 import GGRunner from "../../objects/gg_game_runner.js";
 import MyGame from "../../my_game_main.js";
+import engine from "../../../engine/index.js";
+import Star from "../../objects/star_object.js";
 
 class GravityGunGame extends MyGame {
     constructor() {
@@ -33,6 +35,13 @@ class GravityGunGame extends MyGame {
         this.mPSDrawBounds = false;
 
         this.runner = null;
+
+        // The camera to view the scene
+        this.mCamera = null;
+        this.mBg = null;
+        this.mStar = null;
+        this.kBg = "assets/GameBackground.jpg";
+        this.kStar = "assets/StarSpriteSheet.png";
     }
 
 
@@ -42,6 +51,8 @@ class GravityGunGame extends MyGame {
         engine.texture.load(this.kPlatformTexture);
         engine.texture.load(this.kWallTexture);
         engine.texture.load(this.kTargetTexture);
+        engine.texture.load(this.kBg);
+        engine.texture.load(this.kStar);
     }
 
     unload() {
@@ -49,6 +60,8 @@ class GravityGunGame extends MyGame {
         engine.texture.unload(this.kPlatformTexture);
         engine.texture.unload(this.kWallTexture);
         engine.texture.unload(this.kTargetTexture);
+        engine.texture.unload(this.kBg);
+        engine.texture.unload(this.kStar);
     }
 
     init() {
@@ -95,13 +108,24 @@ class GravityGunGame extends MyGame {
         this.mGravityGun = new engine.GravityParticleSet();
         //x, y, num, perpetual, direction, (optional) custom speed, (optional) custom force, (optional) custom max force
         this.mGravityGun.addEmitterAt(((bounds[2]-bounds[0])/2+bounds[0]),((bounds[3]-bounds[1])/2*1.8+bounds[1]),10,true,0,200,1,10);
+        this.mCamera.setBackgroundColor([1, 1, 1, 0]);
+
+        // Large background image
+        let bgR = new engine.SpriteRenderable(this.kBg);
+        bgR.setElementPixelPositions(0, 800, 0, 600);
+        bgR.getXform().setSize(100, 100);
+        bgR.getXform().setPosition(50, 35);
+        this.mBg = new engine.GameObject(bgR);
+        
+        this.mStar = new Star(this.kStar, [50, 40], [15, 15]);
+
     }
 
     // This is the draw function, make sure to setup proper drawing environment, and more
     // importantly, make sure to _NOT_ change any state.
     draw() {
         // Step A: clear the canvas
-        engine.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+        engine.clearCanvas([1, 1, 1, 1.0]); // clear to light gray
 
         this.mCamera.setViewAndCameraMatrix();
 
@@ -116,8 +140,10 @@ class GravityGunGame extends MyGame {
             this.mGravityParticles.drawMarkers(this.mCamera);
 
         this.mGravityGun.draw(this.mCamera);
-        
         // this.runner.draw(this.mCamera);
+        this.mBg.draw(this.mCamera);
+        this.mStar.draw(this.mCamera);
+        
     }
 
     // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -142,7 +168,6 @@ class GravityGunGame extends MyGame {
         if(engine.input.isKeyClicked(engine.input.keys.C)){
             engine.gravity.toggleCustomColors();
         }
-        
         //rigid bodies ( no gravity)
         this.mAllObjs.update(this.mCamera);
         engine.physics.processSetToSet(this.mAllObjs, this.mPlatforms, this.mCollisionInfos);
@@ -153,7 +178,19 @@ class GravityGunGame extends MyGame {
 
         this.mGravityGun.update(this.mGravObjs);
 
-        
+        this.mStar.update();
+
+        if(engine.input.isKeyClicked(engine.input.keys.G)){
+            this.next("G");
+        }
+
+        if(engine.input.isKeyClicked(engine.input.keys.N)){
+            this.next("N");
+        }
+
+        if(engine.input.isKeyClicked(engine.input.keys.S)){
+            this.next("S");
+        }
         
     }
     
@@ -183,5 +220,6 @@ function _createParticle(atX, atY) {
     
     return p;
 }
+
 
 export default GravityGunGame;

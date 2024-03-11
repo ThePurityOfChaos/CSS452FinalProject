@@ -185,7 +185,22 @@ class GravitySimulation extends MyGame {
         // gravity object update
         this.mGravObjs.update(this.mCamera);
         engine.physics.processSetToSet(this.mGravObjs, this.mPlatforms, this.mCollisionInfos);
-        this.mGravityParticles.update(this.mGravObjs); 
+        this.mGravityParticles.update(this.mGravObjs);
+
+
+        // transitioning between the games
+
+        if(engine.input.isKeyClicked(engine.input.keys.G)){
+            this.next("G");
+        }
+
+        if(engine.input.isKeyClicked(engine.input.keys.N)){
+            this.next("N");
+        }
+
+        if(engine.input.isKeyClicked(engine.input.keys.S)){
+            this.next("S");
+        }
         
     }
     
