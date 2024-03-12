@@ -163,9 +163,7 @@ getters/setters: to get from or set a new value for the renderable
 
 ### File Organization
 
-Rather than creating a whole new file and update the internal structure of the game engine, the gravity functionality is located within input.js, as well as the gravity renderable
-
-What this means the users only need to import engine to be able to use our gravity and particle functionality
+Rather than importing every file related to gravity and particles, the gravity functionality and gravity renderable can be accessible by importing just index.js
 
 - We added the gravity_renderable.js file under the renderables folder as it is a type of renderable
 - We added the gravity_particle.js, gravity_particle_set.js, and gravity_emitter.js under the particles folder as they are all child classes of the files in the particles file
