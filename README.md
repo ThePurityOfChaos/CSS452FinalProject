@@ -170,3 +170,6 @@ What this means the users only need to import engine to be able to use our gravi
 - We added the gravity_renderable.js file under the renderables folder as it is a type of renderable
 - We added the gravity_particle.js, gravity_particle_set.js, and gravity_emitter.js under the particles folder as they are all child classes of the files in the particles file
 - We added gravity_functions.js and gravity.js files under the components folder, as gravity is a component that can be used by the developers and there are some similar functionality there
+
+### Demo
+The demo of this code can be accessed at https://thepurityofchaos.github.io/CSS452FinalProject. It contains 3 games, swappable by holding down 0 and pressing (G/N/S) respectively.
