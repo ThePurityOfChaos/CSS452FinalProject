@@ -14,8 +14,9 @@ or a biting wind with visually present particles that actually pushes the player
 
 ### gravity.js
 
-'function creatorFunc(float atX, float atY, int direction)
-[Overloaded options: float speed, float force, float maxForce, vec4 startColor, vec4 endColor]: ' Creates a gravity particle with these specifications. Overloaded parameters are optional. If they are not used, the default values will be used. Either do not include them, or assign them to 'null' to skip them.
+'function creatorFunc(float atX, float atY, int direction)'
+
+'[Overloaded options: float speed, float force, float maxForce, vec4 startColor, vec4 endColor]: ' Creates a gravity particle with these specifications. Overloaded parameters are optional. If they are not used, the default values will be used. Either do not include them, or assign them to 'null' to skip them.
 This is mostly an internal function, but may be used standalone. 
 
 #### Setters & Getters
@@ -90,11 +91,51 @@ These functions could be called from multiple different classes. It's easier to 
 'function findDirection(int):' Returns the radian angle of a given spoke of the direction wheel. Untested with 'float', so 'int' is suggested.
 
 ### gravity_particle.js
+Extends particle.js
+
+These functions are generally called by gravity_particle_set, but may be called on their own.
+
+'collide(gravity_renderable):' Confirms a collision with a gravity_renderable.
+
+'wasColliding(gravity_renderable):' Confirms that a collision with a gravity_renderable was happening, but now is no longer happening. Kills the particle if this is the case.
+
+'killParticle():' Sets the particle's lifespan to -1.
+
+#### Setters & Getters
+
+#### Setters
+
+'setDirection(int):' Sets the current direction of the particle. Untested with 'float', but may work.
+
+'setForce(int or float):' Sets the current force of the particle.
+
+'setMaxForce(int or float):' Sets the speed at which the particle will not speed up a renderable.
+
+#### Getters
+
+'getDirection():' Returns the current direction of the particle ('float').
+
+'getForce():' Returns the current force of the particle ('int' or 'float').
+
+'getMaxForce():' Returns the speed at which the particle will not speed up a renderable ('int' or 'float').
+
 
 ### gravity_emitter.js
+Extends particle_emitter.js
+
+Constructor is generally called by gravity_particle_set, but may be called on its own.
+'constructor(int/float x, int/float y, int num, boolean perpetual, int direction)'
+'[Overloaded options: int/float speed, int/float force, int/float maxForce]:' Creates a 'gravity_emitter' at the given locations that creates 'gravity_particles' with the given values. 'perpetual' toggles whether or not the emitter refills on particles.
+
+'setColors(vec4 startColor, vec4 endColor):' Sets the start and end colors of the generated particles.
+
+'move(int/float dx, int/float dy):' Change the position of the emitter by the given amounts. Already-generated particles are unaffected.
+
+
 
 ### gravity_renderable.js
 Extends sprite_renderable.js
+
 Used the create an instance of a type of renderable that gets affected by gravity
 
 Functions:
@@ -104,11 +145,19 @@ Functions:
 
 getters/setters: to get from or set a new value for the renderable
 
-'update()': updates the renderable's position based on its current velocity, and checks for collisions with boundaries
+'update()': updates the renderable's position based on its current velocity, and checks for collisions with boundaries. 
 
 ### gravity_particle_set.js
 
+'addEmitterAt(x,y,n,perpetual,direction)'
 
+'[Overloaded options: int/float speed, int/float force, int/float maxForce]:' Creates a 'gravity_emitter' and adds it to the set.
+
+'getEmitterAt(int index):' Returns the emitter object at the index location in the set.
+
+'update()'
+
+'[Overloaded option: gravity_renderable[]]:' Performs collisions between 'gravity_particles' and the input array of 'gravity_renderables'.
 
 ### File Organization
 

@@ -43,14 +43,11 @@ class GravityParticle extends Particle{
     setMaxForce(force){
         this.mMaxForce = force;
     }
-    getPosition(){
-        return this.mRenderComponent.getXform().getPosition();
-    }
     //mark for deletion
     killParticle(){
         this.mCyclesToLive = -1;
     }
-    //
+    //collide with a gravity_renderable
     collide(gravObj){
         //use the gravObj's bounding box. Could probably be simplified with a getter / setter for this.colliding, but eh.
         if(gravObj.collide(this)){

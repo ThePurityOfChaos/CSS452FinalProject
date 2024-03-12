@@ -20,6 +20,7 @@ GravityGunGame.prototype.createBounds = function() {
     this.platformAt(60, 30, 20, 0);
     this.platformAt(20, 20, 20, 0);
     this.platformAt(70, 50, 20, 0);
+    this.platformAt(50,70,100,0);
     
     x = 2;
     w = 3;

@@ -35,9 +35,9 @@ class GravityEmitter extends ParticleEmitter{
         arguments.length>7?this.mMaxForce = arguments[7]:this.mMaxForce = null;
     }
     //changes the colors of the system
-    setColors(color,color2){
-        this.startColor = color;
-        this.endColor = color2;
+    setColors(startColor,endColor){
+        this.startColor = startColor;
+        this.endColor = endColor;
     }
 
     emitParticles(pSet){

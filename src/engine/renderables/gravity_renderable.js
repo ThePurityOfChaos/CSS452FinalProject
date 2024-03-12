@@ -84,10 +84,10 @@ class GravityRenderable extends SpriteRenderable {
         this.slowColorChange = (this.slowColorChange + 1) % this.slowAmount;
 
         //would this increase the velocity beyond the maximum allowed by the particle? OR would this slow down the renderable?
-        if(Math.abs(this.currentVelocityX + particleForce * Math.cos(particleDirection))<maxForce || Math.abs(this.currentVelocityX) > Math.abs(this.currentVelocityX + particleForce * Math.cos(particleDirection))){
+        if(this.gravitating && Math.abs(this.currentVelocityX + particleForce * Math.cos(particleDirection))<maxForce || Math.abs(this.currentVelocityX) > Math.abs(this.currentVelocityX + particleForce * Math.cos(particleDirection))){
             this.currentVelocityX = this.currentVelocityX + particleForce * Math.cos(particleDirection);
         }
-        if(Math.abs(this.currentVelocityY + particleForce * Math.sin(particleDirection))<maxForce || Math.abs(this.currentVelocityY) > Math.abs(this.currentVelocityY + particleForce * Math.sin(particleDirection))){
+        if(this.gravitating && Math.abs(this.currentVelocityY + particleForce * Math.sin(particleDirection))<maxForce || Math.abs(this.currentVelocityY) > Math.abs(this.currentVelocityY + particleForce * Math.sin(particleDirection))){
             this.currentVelocityY = this.currentVelocityY + particleForce * Math.sin(particleDirection);
         }
     }
