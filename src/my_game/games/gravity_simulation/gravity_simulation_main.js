@@ -5,11 +5,8 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 import engine from "../../../engine/index.js";
-import Hero from "../../objects/hero.js";
 import Minion from "../../objects/minion.js";
 import GravitatingObject from "../../objects/gravitating_object.js";
-import GravityEmitter from "../../../engine/particles/gravity_emitter.js";
-import GGRunner from "../../objects/gg_game_runner.js";
 import MyGame from "../../my_game_main.js";
 
 class GravitySimulation extends MyGame {
