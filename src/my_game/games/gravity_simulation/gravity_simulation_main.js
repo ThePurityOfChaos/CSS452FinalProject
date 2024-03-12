@@ -76,8 +76,11 @@ class GravitySimulation extends MyGame {
         //initialize Gravity Objects
         this.mGravObjs = new engine.GameObjectSet();
         this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
-        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 15, 15, [4,4], true, 12));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 30, 15, [4,4], true, 12));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 40, 50, [4,4], true, 12));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 50, 30, [4,4], true, 20));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 50, 45, [4,4], true, 20));
+        this.mGravObjs.addToSet(new GravitatingObject(this.kMinionSprite, 70, 45, [4,4], true, 20));
 
         let y = 70;
         let x = 10;
@@ -107,7 +110,7 @@ class GravitySimulation extends MyGame {
 
         this.mGravObjs.draw(this.mCamera);
 
-        this.mAllObjs.draw(this.mCamera);
+        // this.mAllObjs.draw(this.mCamera);
 
         this.mGravityParticles.draw(this.mCamera);
         if (this.mPSDrawBounds)
