@@ -124,6 +124,7 @@ These functions are generally called by gravity_particle_set, but may be called 
 Extends particle_emitter.js
 
 Constructor is generally called by gravity_particle_set, but may be called on its own.
+
 `constructor(int/float x, int/float y, int num, boolean perpetual, int direction)`
 
 - `[Overloaded options: int/float speed, int/float force, int/float maxForce]:` Creates a `gravity_emitter` at the given locations that creates `gravity_particles` with the given values. `perpetual` toggles whether or not the emitter refills on particles.
