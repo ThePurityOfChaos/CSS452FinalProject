@@ -57,13 +57,6 @@ function getSystemDirections(){
     return mGSystemDirections;
 }
 //input: int/float
-function setSystemDefaultDirection(direction){
-    mGSystemDefaultDirection=direction%360.0;
-}
-function getSystemDefaultDirection(){
-    return mGSystemDefaultDirection;
-}
-//input: int/float
 function setGravityForce(force){
     mGSystemForce = force;
 }
@@ -144,7 +137,7 @@ function creatorFunc(atX, atY, direction){
     
     // velocity on the particle, in radians
     let thisDirection = gravityFunctions.findDirection(direction);
-    let thisSpeed = arguments.length>3?arguments[3]:mGSystemSpeed;
+    let thisSpeed = arguments.length>3?arguments[3]!=null?arguments[3]:mGSystemSpeed:mGSystemSpeed;
     
     let fx = thisSpeed * Math.cos(thisDirection);
     let fy = thisSpeed * Math.sin(thisDirection);
@@ -155,11 +148,11 @@ function creatorFunc(atX, atY, direction){
     // size delta
     p.setSizeDelta(1);
     
-    arguments.length>4?p.setForce(arguments[4]):p.setForce(mGSystemForce);
-    arguments.length>5?p.setMaxForce(arguments[5]):p.setMaxForce(mGSystemMaxForce);
-    let startColor = arguments.length>6?arguments[6]:mGParticleStartColor;
+    arguments.length>4?arguments[4]!=null?p.setForce(arguments[4]):p.setForce(mGSystemForce):p.setForce(mGSystemForce);
+    arguments.length>5?arguments[5]!=null?p.setMaxForce(arguments[5]):p.setMaxForce(mGSystemMaxForce):p.setMaxForce(mGSystemMaxForce);
+    let startColor = arguments.length>6?arguments[6]!=null?arguments[6]:mGParticleStartColor:mGParticleStartColor;
     p.setColor(startColor);
-    let endColor = arguments.length>7?arguments[7]:mGParticleEndColor;
+    let endColor = arguments.length>7?arguments[7]!=null?arguments[7]:mGParticleEndColor:mGParticleEndColor;
     p.setFinalColor(endColor);
 
 
@@ -177,8 +170,8 @@ export {
     toggleRandomParticles, toggleModularSpace, toggleCustomColors,
     getRandomParticles, isModularSpace, usingCustomColors,
     //getters and setters for system values
-    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getSystemDefaultDirection, getLifespan, getMaxForce,
-    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setSystemDefaultDirection, setLifespan, setMaxForce,
+    getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getLifespan, getMaxForce,
+    setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setLifespan, setMaxForce,
     getSystemSpeed,
     setSystemSpeed
 

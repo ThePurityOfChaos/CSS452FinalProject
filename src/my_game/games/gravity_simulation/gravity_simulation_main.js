@@ -158,11 +158,11 @@ class GravitySimulation extends MyGame {
             engine.gravity.setSystemSpeed(engine.gravity.getSystemSpeed() - 1);
         }
         if (engine.input.isKeyPressed(engine.input.keys.A)){      // incrementing system direction
-            engine.gravity.setSystemDefaultDirection(engine.gravity.getSystemDefaultDirection() + 1.0);
+            engine.gravity.setDefaultDirection(engine.gravity.getDefaultDirection() + 1.0);
            
         }
         if (engine.input.isKeyPressed(engine.input.keys.D)){      // decrementing system direction
-            engine.gravity.setSystemDefaultDirection(engine.gravity.getSystemDefaultDirection() - 1.0);
+            engine.gravity.setDefaultDirection(engine.gravity.getDefaultDirection() - 1.0);
         }
 
         if(engine.input.isKeyPressed(engine.input.keys.J)){
