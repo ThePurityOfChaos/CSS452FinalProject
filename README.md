@@ -57,6 +57,17 @@ These functions could be called from multiple different classes. It's easier to 
 ### gravity_emitter.js
 
 ### gravity_renderable.js
+Extends sprite_renderable.js
+Used the create an instance of a type of renderable that gets affected by gravity
+
+Functions:
+'constructor(texture, gravitating, mass)': calls super(texture) and sets whether the object is affected by gravity or not based on "gravitating"
+
+'collide(particle): gets called when a collision between this object and a particle is detected,it's velocity gets affected based on the particle's velocity/direction
+
+getters/setters: to get from or set a new value for the renderable
+
+'update()': updates the renderable's position based on its current velocity, and checks for collisions with boundaries
 
 ### gravity_particle_set.js
 
