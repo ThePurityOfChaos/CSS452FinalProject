@@ -35,10 +35,10 @@ class GGRunner extends GravitatingObject {
             this.mRenderComponent.currentVelocityY = -0.1;
         }
         if (engine.input.isKeyPressed(engine.input.keys.A)) {
-            xform.incXPosBy(-(this.kWASDDelta));
+            this.mRenderComponent.currentVelocityX -= 0.01;
         }
         if (engine.input.isKeyPressed(engine.input.keys.D)) {
-            xform.incXPosBy(this.kWASDDelta);
+            this.mRenderComponent.currentVelocityX += 0.01;
         }      
     }
 }

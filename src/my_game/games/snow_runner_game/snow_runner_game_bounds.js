@@ -16,10 +16,11 @@ SnowRunnerGame.prototype.createBounds = function() {
     for (x = 15; x < 120; x+=30) 
         this.platformAt(x, y, w, 180);
     
-    this.platformAt(35, 40, 20, -30);
-    this.platformAt(60, 30, 20, 0);
-    this.platformAt(20, 20, 20, 0);
-    this.platformAt(70, 50, 20, 0);
+    this.platformAt(40, 39, 10, 0);
+    this.platformAt(60, 39, 10, 0);
+    this.platformAt(60, 50, 20, 90);
+    this.platformAt(40, 50, 20, 90);
+    this.platformAt(50, 61, 20, 0);
     
     x = 2;
     w = 3;

@@ -23,9 +23,13 @@ class GravityParticleSet extends ParticleSet{
     //only does special updates if given a ObjSet containing objects with gravity_renderables as their mRenderComponent
     update(){
         super.update();
+        //overloaded functionality
         if(arguments.length>0){
+            //for all particles
             for(let i=0; i<this.mSet.length; i++){
+                //for all gravity objects
                 for(let j=0; j<arguments[0].mSet.length; j++){
+                    //detect & resolve collisions or lack thereof
                     this.mSet[i].collide(arguments[0].mSet[j].mRenderComponent);
                     if(this.mSet[i].wasColliding(arguments[0].mSet[j].mRenderComponent)){
                         arguments[0].mSet[j].mRenderComponent.resolveCollision(this.mSet[i]);

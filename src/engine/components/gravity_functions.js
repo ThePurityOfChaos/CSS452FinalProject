@@ -17,6 +17,9 @@ function findDirection(direction){
     return (direction*angleDegrees+gravity.getDefaultDirection()) * (Math.PI/180);
 }
 function modularize(x,y){
+    //modularize the position: subtract the lower bound from the position, modulzrize, and add it back at the end.
+    //apparently Javascript has a bug where negative number modulus positive numbers return negative numbers, 
+    //so this is way more complex than it should have been
     let bounds = gravity.getSystemBounds();
         x = ((x-bounds[0])%(bounds[2]-bounds[0])+(bounds[2]-bounds[0]))%(bounds[2]-bounds[0])+bounds[0];
         y = ((y-bounds[1])%(bounds[3]-bounds[1])+(bounds[3]-bounds[1]))%(bounds[3]-bounds[1])+bounds[1];
@@ -66,7 +69,7 @@ export {
     findDirection,
     //helper function to create particles from the gravity system
     generateParticles,
-    //helper function to modularize the bounds
+    //helper function to modularize based on the bounds
     modularize
 
 }

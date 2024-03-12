@@ -199,14 +199,17 @@ class GravityGunGame extends MyGame {
         //transitioning between the games
         if(engine.input.isKeyPressed(engine.input.keys.Zero)){
             if(engine.input.isKeyClicked(engine.input.keys.G)){
+                engine.gravity.toggleRandomParticles();
                 this.next("G");
             }
 
             if(engine.input.isKeyClicked(engine.input.keys.N)){
+                engine.gravity.toggleRandomParticles();
                 this.next("N");
             }
 
             if(engine.input.isKeyClicked(engine.input.keys.S)){
+                engine.gravity.toggleRandomParticles();
                 this.next("S");
             }
         }

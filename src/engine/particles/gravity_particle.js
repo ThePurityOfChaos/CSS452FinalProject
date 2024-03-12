@@ -11,9 +11,11 @@ import * as gravity_functions from "../components/gravity_functions.js";
 
 class GravityParticle extends Particle{
     constructor(texture,x,y,life){
+        //prevents spawning outside the bounds
         if(gravity.isModularSpace()){
             [x,y]=gravity_functions.modularize(x,y);
         }
+        //default values
         super(texture,x,y,life);
         this.mAcceleration = [0, 0];
         this.mDrag = 1;
@@ -22,6 +24,7 @@ class GravityParticle extends Particle{
         this.direction = null;
         this.colliding = false;
     }
+    //getters and setters
     getDirection(){
         return this.direction;
     }
@@ -43,10 +46,13 @@ class GravityParticle extends Particle{
     getPosition(){
         return this.mRenderComponent.getXform().getPosition();
     }
+    //mark for deletion
     killParticle(){
         this.mCyclesToLive = -1;
     }
+    //
     collide(gravObj){
+        //use the gravObj's bounding box. Could probably be simplified with a getter / setter for this.colliding, but eh.
         if(gravObj.collide(this)){
             this.colliding = gravObj;
             return true;
@@ -56,7 +62,7 @@ class GravityParticle extends Particle{
     wasColliding(gravObj){
         if(this.colliding == gravObj && !this.collide(gravObj)){
             this.colliding = false;
-            //mass-based test
+            //mass-based test, currently just assumes that all objects are of infinite mass. 
             if(true){
                 this.killParticle();
             }
@@ -65,15 +71,11 @@ class GravityParticle extends Particle{
     }
     update(){
         super.update();
+
         if(gravity.isModularSpace()){
-        let bounds = gravity.getSystemBounds();
-        let p=this.getPosition();
-        //modularize the position: subtract the lower bound from the position, modulzrize, and add it back at the end.
-        //apparently Javascript has a bug where negative number modulus positive numbers return negative numbers, 
-        //so this is way more complex than it should have been
-        p[0] = ((p[0]-bounds[0])%(bounds[2]-bounds[0])+(bounds[2]-bounds[0]))%(bounds[2]-bounds[0])+bounds[0];
-        p[1] = ((p[1]-bounds[1])%(bounds[3]-bounds[1])+(bounds[3]-bounds[1]))%(bounds[3]-bounds[1])+bounds[1];
-        this.setPosition(p[0],p[1]);
+            let p=this.getPosition();
+            [p[0],p[1]] = gravity_functions.modularize(p[0],p[1]);
+            this.setPosition(p[0],p[1]);
         }
     }
 

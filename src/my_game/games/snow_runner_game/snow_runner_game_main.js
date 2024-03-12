@@ -74,10 +74,12 @@ class SnowRunnerGame extends MyGame {
         );
         // sets the background to gray
         this.mCamera.setBackgroundColor([0.3, 0.4, 0.6, 1]);
+
+        engine.defaultResources.setGlobalAmbientColor([0.5,0.5,0.8,1]);
         
         this.mFireSet = new engine.GameObjectSet();
 
-        this.mFireSet.addToSet(new FirePit(this.kFire, [20, 30], [10, 10], 5));
+        this.mFireSet.addToSet(new FirePit(this.kFire, [50, 50], [10, 10], 5));
 
         // initializing the platforms
         this.mPlatforms = new engine.GameObjectSet();
@@ -100,7 +102,7 @@ class SnowRunnerGame extends MyGame {
         engine.gravity.toggleRandomParticles();
         engine.gravity.setLifespan(100);
         engine.gravity.setSystemSpeed(2);
-        engine.gravity.setDensity(4);
+        engine.gravity.setDensity(3);
         engine.gravity.setSystemSpeed(21);
         engine.gravity.setGravityForce(0.01);
 
@@ -173,14 +175,17 @@ class SnowRunnerGame extends MyGame {
         //transitioning between the games
         if(engine.input.isKeyPressed(engine.input.keys.Zero)){
             if(engine.input.isKeyClicked(engine.input.keys.G)){
+                engine.gravity.toggleRandomParticles();
                 this.next("G");
             }
 
             if(engine.input.isKeyClicked(engine.input.keys.N)){
+                engine.gravity.toggleRandomParticles();
                 this.next("N");
             }
 
             if(engine.input.isKeyClicked(engine.input.keys.S)){
+                engine.gravity.toggleRandomParticles();
                 this.next("S");
             }
         }

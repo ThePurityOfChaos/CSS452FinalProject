@@ -7,7 +7,7 @@ import * as defaultResources from "../resources/default_resources.js"
 import * as gravityFunctions from "./gravity_functions.js";
 import GravityParticle from "../particles/gravity_particle.js";
 
-
+//global variables for use with the system. Mostly just editable default values.
 let mGSystemDirections = 1;
 let mGSystemDefaultDirection = 0.0;
 let mGSystemBounds = [0,0,0,0];
@@ -18,6 +18,8 @@ let mGSystemLife = 10;
 let mGSystemMaxForce = 1;
 let mGParticleStartColor = [1,1,1,1];
 let mGParticleEndColor = [1,1,1,1];
+
+//toggles for the game 
 let mGRandomParticles = false;
 let mGModularSpace = false;
 let mGCustomColors = false;
@@ -159,6 +161,9 @@ function creatorFunc(atX, atY, direction){
     p.setColor(startColor);
     let endColor = arguments.length>7?arguments[7]:mGParticleEndColor;
     p.setFinalColor(endColor);
+
+
+    //mostly for testing purposes
     if(mGCustomColors){
         p.setColor([fy,fx,Math.abs(fx-fy),0.05]);
         p.setFinalColor([fy,fx,Math.abs(fx-fy),0.05]);
@@ -171,7 +176,7 @@ export {
     //particle base manipulations
     toggleRandomParticles, toggleModularSpace, toggleCustomColors,
     getRandomParticles, isModularSpace, usingCustomColors,
-    //getters and setters
+    //getters and setters for system values
     getSystemBounds, getSystemDirections, getDensity, getGravityForce, getDefaultDirection, getParticleStartColor, getParticleEndColor, getSystemDefaultDirection, getLifespan, getMaxForce,
     setSystemBounds, setSystemDirections, setDensity, setGravityForce, setDefaultDirection, setParticleStartColor, setParticleEndColor, setSystemDefaultDirection, setLifespan, setMaxForce,
     getSystemSpeed,
