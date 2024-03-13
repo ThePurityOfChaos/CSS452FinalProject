@@ -171,3 +171,48 @@ Rather than importing every file related to gravity and particles, the gravity f
 
 ### Demo
 The demo of this code can be accessed at https://thepurityofchaos.github.io/CSS452FinalProject. It contains 3 games, swappable by holding down 0 and pressing (G/N/S) respectively.
+
+
+### Example of Functionality Usage
+`setSystemBounds()` should always be called, since the default values are invalid. Other options are not necessary to modify, but are suggested.
+
+In `init():`
+
+`engine.gravity.setSystemBounds([0,0],[100,100]);`
+
+`engine.gravity.toggleRandomParticles();`
+
+`engine.gravity.setLifespan(180);`
+
+`engine.gravity.setSystemSpeed(2);`
+
+`engine.gravity.setSystemDirections(8);`
+
+`engine.gravity.setDensity(3);`
+
+`engine.gravity.setSystemSpeed(20);`
+
+`engine.gravity.setGravityForce(0.01);`
+
+`engine.gravity.setParticleStartColor([1,0,0,0]);`
+
+`engine.gravity.setParticleEndColor([0,0,1,0]);`
+
+`engine.gravity.setDefaultDirection(270.0);`
+
+`this.mGravityParticles = engine.gravity_functions.generateParticles();`
+
+`this.mGravObjs = new engine.GameObjectSet()`
+
+`this.mGravObjs.addToSet(new GameObject(new GravityRenderable(aTexture,true,5)));`
+
+In `update():`
+`this.mGravObjs.update();`
+
+`this.mGravityParticles.update(this.mGravObjs);`
+
+In `draw():`
+
+`this.mGravityParticles.draw(this.mCamera);`
+
+This creates a particle system which shifts from red to blue with downward as the default direction, with very slow acceleration in 8 directions and an object with aTexture.
